@@ -2,6 +2,8 @@ import datetime
 import json
 import taskFunctions.addTask as addTask
 import taskFunctions.showTask as showTask
+import taskFunctions.editTask as showTask
+
 import get_date
 
 def showHome():
@@ -27,7 +29,7 @@ def main():
             case "2":
                 addTask.addTask()
             case "3":
-                editTask()
+                addTask.editTask()
             case "4":
                 deleteTask()
             case "5":
