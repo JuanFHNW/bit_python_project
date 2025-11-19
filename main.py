@@ -2,7 +2,7 @@ import datetime
 import json
 import taskFunctions.addTask as addTask
 import taskFunctions.showTask as showTask
-import taskFunctions.editTask as showTask
+import taskFunctions.editTask as editTask
 
 import get_date
 

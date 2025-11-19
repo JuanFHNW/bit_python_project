@@ -29,5 +29,12 @@ def showTask():
          for task in foundTask:
           print(f"{task['description']}")
 
+    while True:
+        proceedCheck = input("\nType 1 to continue: ")
+        if proceedCheck == "1":
+            break
+        else:
+            print("Wrong input please type 1") 
+
 if __name__ == "__main__":
     showTask()
