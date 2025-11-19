@@ -25,7 +25,9 @@ def showTask():
     if not foundTask:
         print("You have no task(s) on this date")
     else:
-         print(f"You have this task(s) on this date: {foundTask['description']}")
+         print("You have this task(s) on this date:")
+         for task in foundTask:
+          print(f"{task['description']}")
 
 if __name__ == "__main__":
     showTask()
