@@ -1,11 +1,14 @@
 import json
-import re
+from datetime import date 
 def addTask():
     while True:
         userInputDate = input("Write down the date you want to add to your task in the follwing format: \nyyyy.mm.dd\n")
         try:
             year, month, day = userInputDate.split('.')
-            if len(year) == 4 and year.isdigit() and len(month) == 2 and month.isdigit() and len(day) == 2 and day.isdigit():  
+            if len(year) == 4 and year.isdigit() and len(month) == 2 and month.isdigit() and len(day) == 2 and day.isdigit(): 
+                year = int(year)
+                month = int(month)
+                day = int(day) 
                 print(f"userinput data:  {userInputDate}")
                 break
             else:
@@ -14,9 +17,8 @@ def addTask():
             print("Wrong input!") 
 
     taskDescription = input("Write down the description of the task:\n")
-
     task = {
-        "date": userInputDate.isoformat(),
+        "date": date(year, month, day).isoformat(),
         "description": taskDescription
         }
     #add task data to json file
