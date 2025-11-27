@@ -25,13 +25,13 @@ def addTask():
     try:
         with open('taskData.json', "r+") as taskJson:
             taskFileJson = json.load(taskJson)
-            taskFileJson ["task_details"].append(task)
+            taskFileJson.append(task)
             taskJson.seek(0)
             json.dump(taskFileJson, taskJson, indent=4)
             taskJson.truncate()
         print("Your task was added")
-    except:
-        print("There was an error storing the data")
+    except Exception as e:
+        print("There was an error storing the data:", e)
  
 if __name__ == "__main__":
     addTask()
