@@ -32,6 +32,13 @@ def addTask():
         print("Your task was added")
     except Exception as e:
         print("There was an error storing the data:", e)
+
+    while True:
+        proceedCheck = input("\nType 1 to continue: ")
+        if proceedCheck == "1":
+            break
+        else:
+            print("Wrong input please type 1")
  
 if __name__ == "__main__":
     addTask()
