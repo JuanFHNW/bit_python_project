@@ -1,4 +1,3 @@
-import get_date
 import datetime
 import json
 
@@ -24,10 +23,14 @@ def deleteTask():
     if not foundTask:
         print("You have no task(s) on this date")
     else:
-         print("You have this task(s) on this date:")
-         for task in foundTask:
-          print(userInputDate)
-          print(f"{task['description']}")
+        print(f"You have this task(s) on this date:")
+        for task in foundTask:
+            print(f"{task['description']}")
 
+    byeDate = userInputDate
+    while True:
+        byeDescription = input("Type the description you want to delete:\n")
+        
+    
 if __name__ == "__main__":
     deleteTask()
