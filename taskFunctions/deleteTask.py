@@ -28,6 +28,8 @@ def deleteTask():
             print(f"{task['description']}")
 
     byeDate = userInputDate
+    print(byeDate)
+    print(task_date)
     byeDescription = input("Type the description you want to delete:\n")
     
     eraseTask = next((i for i, item in enumerate(tasks)
