@@ -29,7 +29,7 @@ def main():
             case "2":
                 addTask.addTask()
             case "3":
-                addTask.editTask()
+                editTask.editTask()
             case "4":
                 deleteTask()
             case "5":
