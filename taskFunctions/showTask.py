@@ -34,7 +34,7 @@ def showTask():
         if proceedCheck == "1":
             break
         else:
-            print("Wrong input please type 1") 
+            print("Wrong input please type 1")
 
 if __name__ == "__main__":
     showTask()

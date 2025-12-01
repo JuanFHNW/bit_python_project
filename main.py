@@ -3,7 +3,7 @@ import json
 import taskFunctions.addTask as addTask
 import taskFunctions.showTask as showTask
 import taskFunctions.editTask as editTask
-
+import taskFunctions.deleteTask as deleteTask
 import get_date
 
 def showHome():
@@ -31,7 +31,7 @@ def main():
             case "3":
                 editTask.editTask()
             case "4":
-                deleteTask()
+                deleteTask.deleteTask()
             case "5":
                 exit = True       
 
