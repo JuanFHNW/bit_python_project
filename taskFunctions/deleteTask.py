@@ -28,9 +28,31 @@ def deleteTask():
             print(f"{task['description']}")
 
     byeDate = userInputDate
+    byeDescription = input("Type the description you want to delete:\n")
+    
+    eraseTask = next((i for i, item in enumerate(tasks)
+        if item["date"] == byeDate and item["description"] == byeDescription),
+        None)
+    
+    if eraseTask is not None:
+        del taskJson[eraseTask]
+        print("Task deleted")
+    else:
+        print("No task found")
+    
+    try:
+        with open('taskData.json', "r+") as taskJson:
+            json.dump(tasks, taskJson, indent=4)
+            taskJson.truncate
+    except Exception as e:
+        print("There was an error deleating the data: ", e)
+    
     while True:
-        byeDescription = input("Type the description you want to delete:\n")
-        
+        proceedCheck = input("\nType 1 to continue: ")
+        if proceedCheck == "1":
+            break
+        else:
+            print("Wrong input please type 1")
     
 if __name__ == "__main__":
     deleteTask()
