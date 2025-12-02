@@ -28,11 +28,10 @@ def deleteTask():
         for task in foundTask:
             print(f"{task['description']}")
 
-    byeDate = userInputDate
     byeDescription = input("Type the description you want to delete:\n")
     
     eraseTask = next((i for i, item in enumerate(tasks)
-        if item["date"] == byeDate.isoformat() and item["description"] == byeDescription),
+        if item["date"] == userInputDate.isoformat() and item["description"] == byeDescription),
         None)
     
     if eraseTask is not None:
