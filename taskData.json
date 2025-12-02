@@ -1,38 +1,22 @@
 [
     {
-        "date": "2025-10-15",
+        "date": "2026-09-15",
         "description": "Doctor appointment"
     },
     {
-        "date": "2025-10-15",
-        "description": "bussiness appointment"
+        "date": "2025-12-25",
+        "description": "Family appointment"
+    },
+    {
+        "date": "2025-08-15",
+        "description": "business appointment"
     },
     {
         "date": "2025-10-15",
-        "description": "TESTTTT"
-    },
-    {
-        "date": "2025-10-16",
-        "description": "Team meeting at office"
-    },
-    {
-        "date": "2025-10-17",
-        "description": "Buy groceries"
-    },
-    {
-        "date": "2025-12-22",
-        "description": "christmas"
-    },
-    {
-        "date": "2026-12-30",
-        "description": "jsf"
-    },
-    {
-        "date": "2025-11-27",
-        "description": "hi"
+        "description": "friends appointment"
     },
     {
         "date": "2025-11-11",
-        "description": "Send a message to my mom"
+        "description": "cats appointment"
     }
 ]

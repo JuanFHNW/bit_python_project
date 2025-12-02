@@ -36,27 +36,25 @@ def editTask():
         elif foundTasks.count == 1:
             editTask = foundTasks[0]
 
-        print("Your chosen Task: " + editTask["date"] + "  "+ editTask["description"] )
+        print("Your chosen Taskk: " + editTask["date"] + ":  "+ editTask["description"] )
 
         newDate = input("Write down the new date in the following format: \nyyyy.mm.dd\n")
-        newDate = get_date(newDate)
+        newDate = get_date.get_date(newDate)
         newDesc = input("Write down the new description\n")
 
-        try:
-            with open('./taskData.json', "r") as taskJson:
-                jsTasks = json.loads(taskJson.read())
-                
-                for jsTask in jsTasks:
-                    if newDesc == jsTask.get["description"]:
-                        jsTasks.remove(jsTask)
-                        break
-        except:
-            print("There was an error searching for data")
-
-                
-
-            
-
+        #try:
+        with open('./taskData.json', "r") as taskJson:
+            jsTasks = json.loads(taskJson.read())
+               
+            for jsTask in jsTasks:
+                if editTask["description"] == jsTask.get("description") and editTask["date"] == jsTask.get("date"):
+                    jsTask["description"] = newDesc
+                    jsTask["date"] = newDate.isoformat()
+                    break
+        with open('./taskData.json', "w") as taskJson:
+            json.dump(jsTasks, taskJson, indent=4)
+       # except:
+        #    print("There was an error searching for data")
 
             
 
