@@ -1,3 +1,4 @@
+import sys
 import taskFunctions.addTask as addTask
 import taskFunctions.showTask as showTask
 import taskFunctions.editTask as editTask
@@ -21,7 +22,8 @@ def main():
             case "4":
                 deleteTask.deleteTask()
             case "5":
-                exit = True       
+                #quit programme
+                sys.exit()      
 
 if __name__ == "__main__":
     main()
