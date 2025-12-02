@@ -8,6 +8,7 @@ def deleteTask():
         userInputDate = datetime.date(year, month, day)
     except ValueError:
         print("Your input wasn't readable")
+        return
 
     foundTask = []
     try:
@@ -31,7 +32,7 @@ def deleteTask():
     byeDescription = input("Type the description you want to delete:\n")
     
     eraseTask = next((i for i, item in enumerate(tasks)
-        if item["date"] == byeDate.isoformat and item["description"] == byeDescription),
+        if item["date"] == byeDate.isoformat() and item["description"] == byeDescription),
         None)
     
     if eraseTask is not None:
