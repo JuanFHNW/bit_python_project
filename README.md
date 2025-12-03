@@ -27,4 +27,27 @@ TaskTracker helps users to track their tasks by letting them add, edit or delete
 4. As a user, I want to add a new task with a title, description, date, and time, and be notified if I leave any required fields empty or use invalid input.
 5. As a user, I want to be certain that all my tasks are automatically saved and immediately available and displayed when I restart the application, so I never lose my workload data.
 
+## ✅ Project Requirements
+
+Each app must meet the following three criteria in order to be accepted (see also the official project guidelines PDF on Moodle):
+
+1. Interactive app (console input)
+2. Data validation (input checking)
+3. File processing (read/write)
+
+---
+
+### 1. Interactive App (Console Input)
+
+> 🚧 In this section, it's described how this project fullfield the criterias.  
+---
+The application interacts with the user via the console. Users can:
+- Select action "Show your task", "Add task", "Edit task", "Delete task", "Exit"
+- Add a description and date of your task
+- Chose an existing task to edit or delete
+
+## 📝 License
+
+This project is provided for **educational use only** as part of the Programming Foundations module.  
+[MIT License](LICENSE)
 
