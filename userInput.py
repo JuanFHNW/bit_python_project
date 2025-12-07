@@ -1,57 +1,94 @@
 import taskFunctions.searchUtlils as searchUtlil
-from get_date import get_date
+from getDate import getDate
+
+#asking user wethever the user wants to search for a date or description
+def getDateOrDescription():
+    while True:
+        userInputSearch = input("Type 0 to search for a description of your task or type 1 for a date\n")
+        if userInputSearch == "0":
+            return userInputSearch
+        elif userInputSearch == "1":
+            return userInputSearch
+        else:
+            print("Please try again. Only number 0 and 1 are allowed.")
 
 #asking user for a date input
-#if parameter new = 1 then print is for a new date. Default is not new
-def getTaskDateInput(new=0):
+def getInputDate(promt):
     while True:
-        if new == 0:
-            userInputDate = input("Write down the date in the following format: \nyyyy.mm.dd\n")
-        elif new == 1:
-            userInputDate = input("Write down the new date in the following format: \nyyyy.mm.dd\n")
+        userInputDate = input(promt)
         try:
-            dateObj = get_date(userInputDate)
+            dateObj = getDate(userInputDate)
             return dateObj 
         except ValueError:
-            print("Wrong input! Please use the format: yyyy.mm.dd")
-            
-def getNewTaskDescription():
+            print("Invalid input! Please use the format: yyyy.mm.dd")
+
+#asking user for a description            
+def getInputDescription(promt):
         while True:
-            userInputDesc = input(f"Write down the new description of the task you want to edit\n")
+            userInputDesc = input(promt)
             if userInputDesc:
                 return userInputDesc
             else:
                 print("Your input can't be empty")
 
 
-#asking user for the description of the task
-#if parameter new = 1 then print is for a new description. Default is not new
-def getTaskDescriptionInput(tasks, action):
+#asking user for the description of an existing task
+#if the user press 1 the action quits
+def getMatchingTaskDescription(tasks, promt):
     while True:
-        userInputDesc = input(f"Write down the description of the task you want to {action}\n")
-               
-        foundTasks = searchUtlil.getTasksbyDescription(tasks, userInputDesc)
-        
+        InputDesc = input(promt)
+        if InputDesc == "1":
+            return None
+        foundTasks = searchUtlil.getTasksbyDescription(tasks, InputDesc)
         if foundTasks:
             return foundTasks
         else:
             print("No tasks matching this description were found. Please try again or type '1' to quit.")
 
-#asking user which exact task the action should apply to
-def getSpecificTask(foundTasks):
-    print("The follwing tasks were found. Write down the corresponding number for the task you want to edit. \n")
+#asking user for the date of an existing task
+def getMatchingTaskDate(tasks, promt):
     while True:
-        for i in range(len(foundTasks)):
-            print(str(i) + "  " + foundTasks[i]["description"])
-        userInputTask = input("Write the number of the task you want to edit: \n")
-        #if correct input
-        if int(userInputTask) < len(foundTasks):
-            print("The chosen task: " + foundTasks[int(userInputTask)]["date"] + ":  "+ foundTasks[int(userInputTask)]["description"] )
-            return foundTasks[int(userInputTask)]
-        else:
-            print(f"Please write a number between 1 and {len(foundTasks)}")
+        InputDate = input(promt)
+        if InputDate == "1":
+            return None
+        try:
+            foundTasks = searchUtlil.getTasksbyDate(tasks, InputDate)
+            if foundTasks:
+                return foundTasks
+            else:
+                print("No tasks matching this date were found. Please try again or type '1' to quit.")
+        except ValueError:
+            print("Your input is invalid. Try again or type 1 to quit")
+
+
+#asking user which exact task the action should apply to
+def getSpecificTask(foundTasks,promt):
+    if len(foundTasks) == 1:
+        print("This matching task was found: " + foundTasks[0]["date"] + ":  "+ foundTasks[0]["description"] )
+        return foundTasks[0]
+    else:
+        print(promt)
+        while True:
+            for i in range(len(foundTasks)):
+                print(str(i) + "  "  + foundTasks[i]["date"] + ": " + foundTasks[i]["description"])
+            userInputTask = input(f"Write the number (0 - {len(foundTasks)-1}) of the task you want to edit:  \n")
+            #if correct input
+            try:
+                if int(userInputTask) < len(foundTasks):
+                    print("The chosen task: " + foundTasks[int(userInputTask)]["date"] + ":  "+ foundTasks[int(userInputTask)]["description"] )
+                    return foundTasks[int(userInputTask)]
+                else:
+                    print(f"Please write a number between 1 and {len(foundTasks)}")
+            except ValueError:
+                print("Invalid input. Try again.")
+
+def printTasks(foundTasks):
+    print("You have this matching task(s):")
+    for task in foundTasks:
+        print(f"{task['date']}: {task['description']}")
+    input("Press enter to continue")    
+
       
 
 if __name__ == "__main__":
-    inputDate = getTaskDateInput()
-    inputDescription = getTaskDescriptionInput("edit")
+    pass

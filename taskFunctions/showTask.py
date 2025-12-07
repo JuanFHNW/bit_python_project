@@ -1,40 +1,28 @@
-import get_date
+import getDate
 import datetime
 import json
 
+import jsonHandler
+import userInput
+
+
 def showTask():
-    try:
-        userInputDate = input("Write down the date you want to see your task in the follwing format: \nyyyy.mm.dd\n")
-        year, month, day = map(int, userInputDate.split('.'))
-        userInputDate = datetime.date(year, month, day)
-    except ValueError:
-        print("Your input wasn't readable")
 
+    #get the tasks from the json data
+    tasks = jsonHandler.getJsonTasks()
     
-    foundTask = []
-    try:
-        with open('./taskData.json', "r") as taskJson:
-            tasks = json.load(taskJson)
-            for task in tasks:
-                task_date = datetime.date.fromisoformat(task["date"])
-                if task_date == userInputDate:
-                    foundTask.append(task)
-    except:
-        print("There was an error searching for data")
-        
-    if not foundTask:
-        print("You have no task(s) on this date")
-    else:
-         print("You have this task(s) on this date:")
-         for task in foundTask:
-          print(f"{task['description']}")
+    #if user wants to search by description or date
+    userSearch = userInput.getDateOrDescription()
+    #get matching tasks depending user input description or date, if the return from the get function is null the user wants to quit
+    if userSearch == "0":
+        foundTasks = userInput.getMatchingTaskDescription(tasks, "Write down the description of the task you want to search\n")
+    elif userSearch == "1":
+        foundTasks = userInput.getMatchingTaskDate(tasks, "Write down the date you want to search in the following format: \nyyyy.mm.dd\n")
+    if not foundTasks:
+        return None
+    userInput.printTasks(foundTasks)
+    
 
-    while True:
-        proceedCheck = input("\nType 1 to continue: ")
-        if proceedCheck == "1":
-            break
-        else:
-            print("Wrong input please type 1")
 
 if __name__ == "__main__":
     showTask()
