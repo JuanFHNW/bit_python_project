@@ -25,7 +25,6 @@ def addEntries(task):
             taskJson.seek(0)
             json.dump(taskFileJson, taskJson, indent=4)
             taskJson.truncate()
-        print("Your task was added")
     except Exception as e:
         print("There was an error storing the data:", e)
 

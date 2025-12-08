@@ -1,12 +1,12 @@
-import json
+import jsonHandler
 
 def printNextTasks():
     try:
          with open('./taskData.json', "r") as taskJson:
             #load data and sort it by date
-            tasks = json.load(taskJson)
+            tasks = jsonHandler.getJsonTasks()
             tasks.sort(key=lambda task: task['date'])
-            #print the up to the first 3 tasks 
+            #print up to the first 3 tasks 
             i = 0
             if len(tasks) > 0:
                 while i <= len(tasks) and i < 3:

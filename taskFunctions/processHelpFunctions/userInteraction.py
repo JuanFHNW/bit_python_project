@@ -1,5 +1,5 @@
-import taskFunctions.searchUtlils as searchUtlil
-from getDate import getDate
+import taskFunctions.processHelpFunctions.searchUtlils as searchUtlil
+from taskFunctions.processHelpFunctions.getDate import getDate
 
 #asking user wethever the user wants to search for a date or description
 def getDateOrDescription():
@@ -13,9 +13,9 @@ def getDateOrDescription():
             print("Please try again. Only number 0 and 1 are allowed.")
 
 #asking user for a date input
-def getInputDate(promt):
+def getInputDate(prompt):
     while True:
-        userInputDate = input(promt)
+        userInputDate = input(prompt)
         try:
             dateObj = getDate(userInputDate)
             return dateObj 
@@ -23,9 +23,9 @@ def getInputDate(promt):
             print("Invalid input! Please use the format: yyyy.mm.dd")
 
 #asking user for a description            
-def getInputDescription(promt):
+def getInputDescription(prompt):
         while True:
-            userInputDesc = input(promt)
+            userInputDesc = input(prompt)
             if userInputDesc:
                 return userInputDesc
             else:
@@ -34,9 +34,9 @@ def getInputDescription(promt):
 
 #asking user for the description of an existing task
 #if the user press 1 the action quits
-def getMatchingTaskDescription(tasks, promt):
+def getMatchingTaskDescription(tasks, prompt):
     while True:
-        InputDesc = input(promt)
+        InputDesc = input(prompt)
         if InputDesc == "1":
             return None
         foundTasks = searchUtlil.getTasksbyDescription(tasks, InputDesc)
@@ -46,9 +46,9 @@ def getMatchingTaskDescription(tasks, promt):
             print("No tasks matching this description were found. Please try again or type '1' to quit.")
 
 #asking user for the date of an existing task
-def getMatchingTaskDate(tasks, promt):
+def getMatchingTaskDate(tasks, prompt):
     while True:
-        InputDate = input(promt)
+        InputDate = input(prompt)
         if InputDate == "1":
             return None
         try:
@@ -62,12 +62,12 @@ def getMatchingTaskDate(tasks, promt):
 
 
 #asking user which exact task the action should apply to
-def getSpecificTask(foundTasks,promt):
+def getSpecificTask(foundTasks,prompt):
     if len(foundTasks) == 1:
         print("This matching task was found: " + foundTasks[0]["date"] + ":  "+ foundTasks[0]["description"] )
         return foundTasks[0]
     else:
-        print(promt)
+        print(prompt)
         while True:
             for i in range(len(foundTasks)):
                 print(str(i) + "  "  + foundTasks[i]["date"] + ": " + foundTasks[i]["description"])
@@ -87,8 +87,7 @@ def printTasks(foundTasks):
     for task in foundTasks:
         print(f"{task['date']}: {task['description']}")
     input("Press enter to continue")    
-
-      
+   
 
 if __name__ == "__main__":
     pass
