@@ -1,5 +1,5 @@
-import jsonHandler as jsonHandler
-import interface as interface
+import jsonHandler
+import interface
 
 def addTask():
     #get user input of the date for the new task

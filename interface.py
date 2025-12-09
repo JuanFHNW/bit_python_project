@@ -1,4 +1,4 @@
-from taskFunctions.utils.taskUtils import getDate
+import datetime
 
 def printHome():
     print("\n==== TASK PLANER MENU ====")
@@ -21,11 +21,16 @@ def getDateOrDescription():
             print("Please try again. Only number 0 and 1 are allowed.")
 
 #asking user for a date input
-def getInputDate(prompt):
+#if argument quit = 1 then user is allowed to type 1.
+def getInputDate(prompt, quit = 0):
     while True:
-        userInputDate = input(prompt)
+        inputDate = input(prompt)
+        if quit == 1:
+            if inputDate == "1":
+                return inputDate
         try:
-            dateObj = getDate(userInputDate)
+            year, month, day = map(int, inputDate.split('.'))
+            dateObj = datetime.date(year, month, day)
             return dateObj 
         except ValueError:
             print("Invalid input! Please use the format: yyyy.mm.dd")
@@ -39,10 +44,15 @@ def getInputDescription(prompt):
             else:
                 print("Your input can't be empty")
 
-def printTasks(tasks, prompt):
+#if showIndex = 1 then the index of the tast is displayed
+def printTasks(tasks, prompt, showIndex = 0):
     print(prompt)
-    for i in range(len(tasks)):
-        print(str(i) + "  "  + tasks[i]["date"] + ": " + tasks[i]["description"])
+    if showIndex == 1:
+        for i in range(len(tasks)):
+            print(str(i) + "  "  + tasks[i]["date"] + ": " + tasks[i]["description"])
+    else:
+        for task in tasks:
+            print(task["date"] + ": " + task["description"])
       
 def printError(prompt):
     print("Error: " + prompt)  
@@ -61,13 +71,12 @@ def getUserIndex(minLength, maxLength, prompt):
         except ValueError:
                 print ("Invalid input. Try again.")
 
-def UserInput(prompt):
+def waitForUser(prompt):
     input(prompt)
     
-
-
    
 
 if __name__ == "__main__":
     #testing
-    testIndex = getUserIndex(0,10,"Type a number between 0 and 10")
+   # testIndex = getUserIndex(0,10,"Type a number between 0 and 10")
+    userDate = getInputDate ("Type a date\n")

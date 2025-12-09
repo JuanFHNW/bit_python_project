@@ -1,20 +1,10 @@
 import datetime
 import interface
 
-#return date format
-def getDate(userInputDate):
-    year, month, day = map(int, userInputDate.split('.'))
-    userInputDate = datetime.date(year, month, day)
-    return userInputDate
-
 #compare target date with the date of the tasks
 def getTasksbyDate(tasks, targetDate):
     foundTasks = []
     tasks.sort(key=lambda task: task['description'].lower())
- #   print(targetDate )
-  #  print(type(targetDate))
-   # targetDate = datetime.date.fromisoformat(str(targetDate.replace(".", "-")))
-
     for task in tasks:
         taskDate = datetime.date.fromisoformat(task["date"])
         if taskDate == targetDate:
@@ -42,18 +32,18 @@ def getMatchingTasks(tasks, userSearch):
                 if foundTasks:
                     return foundTasks
                 else:
-                    interface.printError("No tasks matching this description were found. Please try again or type '1' to quit.\n")
+                    interface.printMsg("No tasks matching this description were found. Please try again or type '1' to quit.\n")
 
     elif userSearch == "1":
         while True:
-            inputDate = interface.getInputDate("Write down the date of the task you want to search\n")
+            inputDate = interface.getInputDate("Write down the date of the task you want to search\n", 1)
             if inputDate == "1":
                 return None
             foundTasks = getTasksbyDate(tasks, inputDate)
             if foundTasks:
                 return foundTasks
             else:
-                interface.printError("No tasks matching this date were found. Please try again or type '1' to quit.")
+                interface.printMsg("No tasks matching this date were found. Please try again or type '1' to quit.")
     if not foundTasks:
         return None
 
@@ -64,7 +54,7 @@ def getSpecificTask(foundTasks,prompt):
         return foundTasks[0]
     else:
         while True:
-            interface.printTasks(foundTasks, prompt)
+            interface.printTasks(foundTasks, prompt, 1)
             #get user index for the task
             InputSpecTask = interface.getUserIndex(0, len(foundTasks)-1, f"Write the number (0 - {len(foundTasks)-1}) of the task you want to edit:  \n")
             interface.printMsg("The chosen task: " + foundTasks[InputSpecTask]["date"] + ":  "+ foundTasks[InputSpecTask]["description"] )
@@ -74,4 +64,3 @@ if __name__ == "__main__":
     #for testing usage
     tasks = [{'date': '2026-09-15', 'description': 'Doctor appointment'}, {'date': '2025-12-25', 'description': 'Family appointment'}, {'date': '2025-12-25', 'description': 'dog appointment'}, {'date': '2028-11-11', 'description': 'friends and family appointment'}, {'date': '2030-12-29', 'description': 'new bird appointment'}, {'date': '2018-12-22', 'description': 'tessttt'}, {'date': '2025-05-03', 'description': 'peepd'}]
     foundTasks = getTasksbyDate(tasks, '2025.12.25')
-   # foundTasks = getTasksbyDescription()

@@ -29,7 +29,7 @@ def addEntries(task):
     except Exception as e:
         interface.printError("There was an error storing the data:", e)
 
-    interface.UserInput("You tasks is now added press enter to continue\n")    
+    interface.waitForUser("You tasks is now added press enter to continue\n")    
 
 
 def updateEntry(editTask, newDesc, newDate):
@@ -43,7 +43,7 @@ def updateEntry(editTask, newDesc, newDate):
                 break
     with open('taskData.json', "w") as taskJson:
         json.dump(jsTasks, taskJson, indent=4)
-        interface.UserInput("You tasks is now updated press enter to continue\n")    
+        interface.waitForUser("You tasks is now updated press enter to continue\n")    
 
 def deleteEntry(delTask,tasks):
     eraseTask = next((i for i, item in enumerate(tasks)
@@ -63,7 +63,7 @@ def deleteEntry(delTask,tasks):
     except Exception as e:
         interface.printError("There was an error deleting the data: ", e)
     
-    interface.UserInput("You tasks is now deleted press enter to continue\n")    
+    interface.waitForUser("You tasks is now deleted press enter to continue\n")    
 
 
 if __name__ == "__main__":

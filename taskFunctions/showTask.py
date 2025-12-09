@@ -1,4 +1,4 @@
-import jsonHandler as jsonHandler
+import jsonHandler
 import interface
 import taskFunctions.utils.taskUtils as taskUtils
 
@@ -14,7 +14,7 @@ def showTask():
         return None
     #print the tasks
     interface.printTasks(foundTasks, "You have this matching task(s):")
-    interface.UserInput()
+    interface.waitForUser()
     
 if __name__ == "__main__":
     showTask()

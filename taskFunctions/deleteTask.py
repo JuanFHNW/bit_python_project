@@ -1,5 +1,5 @@
-import jsonHandler as jsonHandler
-import interface as interface
+import jsonHandler
+import interface
 import taskFunctions.utils.taskUtils as taskUtils
 
 
@@ -14,10 +14,10 @@ def deleteTask():
     if not foundTasks:
         return None
     #get the specific task which should be deleted
-    deleteTask = taskUtils.getSpecificTask(foundTasks, "The follwing tasks were found. Write down the corresponding number for the task you want to edit. \n")
+    selectedTask = taskUtils.getSpecificTask(foundTasks, "The follwing tasks were found. Write down the corresponding number for the task you want to edit. \n")
 
     #delete the task
-    jsonHandler.deleteEntry(deleteTask,tasks)
+    jsonHandler.deleteEntry(selectedTask,tasks)
 
     
 if __name__ == "__main__":
