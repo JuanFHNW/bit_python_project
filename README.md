@@ -106,20 +106,18 @@ TaskTracker/
 │
 ├── main.py                  # Entry point (Menu loop)
 ├── index.py                 # Dashboard/Home logic
-├── taskData.json            # Persistent data storage
+├── interface.py             # UI Layer: Input/Output & Validierung
+├── jsonHandler.py           # Data Layer: store/load
+├── taskData.json            # Persistent data store
 │
-└── taskFunctions/           # main feature modules
+└── taskFunctions/           # Controller Layer 
     ├── addTask.py
     ├── editTask.py
     ├── deleteTask.py
     ├── showTask.py
     │
-    └── utils/                 # utils
-        ├── __init__.py     
-        ├── userInteraction.py # Handles console inputs and validation
-        ├── searchUtils.py     #
-        ├── dateUtils.py     Date parsing logic
-        └── jsonHandler.py   Handles reading/writing to JSON
+    └── utils/               # Logic layer (pure algorithm)
+        └── taskUtils.py     # search, filter & selection-Workflows
 ```
 ### How to Run
 1. Open the repository in Terminal
