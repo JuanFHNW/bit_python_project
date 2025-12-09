@@ -1,11 +1,11 @@
-import jsonHandler
-import taskFunctions.processHelpFunctions.userInteraction as userInteraction
+import jsonHandler as jsonHandler
+import interface as interface
 
 def addTask():
     #get user input of the date for the new task
-    inputDate = userInteraction.getInputDate("Write down the date you want to add to your task in the following format: \nyyyy.mm.dd\n")
+    inputDate = interface.getInputDate("Write down the date you want to add to your task in the following format: \nyyyy.mm.dd\n")
     #get user input of the description of the new task
-    inputDescription = userInteraction.getInputDescription("Write down the description of the task:\n")
+    inputDescription = interface.getInputDescription("Write down the description of the task:\n")
     newTask = {
         "date": inputDate.isoformat(),
         "description": inputDescription

@@ -1,4 +1,5 @@
 import json
+import interface
 
 def getJsonTasks():
     try:
@@ -6,14 +7,14 @@ def getJsonTasks():
             tasks = json.load(taskJson)
             return tasks
     except FileNotFoundError:
-        print("Error: File was not found")
+        interface.printError("File was not found")
         return []
     except json.JSONDecodeError:
         # If the file is corrupted, print error and start with an empty list
-        print("Error: Task data file is corrupt (invalid JSON format). Starting with no tasks.")
+        interface.printError("Task data file is corrupt (invalid JSON format). Starting with no tasks.")
         return []
     except:
-        print("Error loading the JSON file")
+        interface.printError("loading the JSON file")
         return []
     
 
@@ -26,9 +27,9 @@ def addEntries(task):
             json.dump(taskFileJson, taskJson, indent=4)
             taskJson.truncate()
     except Exception as e:
-        print("There was an error storing the data:", e)
+        interface.printError("There was an error storing the data:", e)
 
-    input("You tasks is now added press enter to continue")    
+    interface.UserInput("You tasks is now added press enter to continue\n")    
 
 
 def updateEntry(editTask, newDesc, newDate):
@@ -42,7 +43,7 @@ def updateEntry(editTask, newDesc, newDate):
                 break
     with open('taskData.json', "w") as taskJson:
         json.dump(jsTasks, taskJson, indent=4)
-        input("You tasks is now updated press enter to continue")    
+        interface.UserInput("You tasks is now updated press enter to continue\n")    
 
 def deleteEntry(delTask,tasks):
     eraseTask = next((i for i, item in enumerate(tasks)
@@ -51,18 +52,18 @@ def deleteEntry(delTask,tasks):
     
     if eraseTask is not None:
         del tasks[eraseTask]
-        print("Task deleted")
+        interface.printMsg("Task deleted")
     else:
-        print("No task found")
+        interface.printError("No task found")
     
     try:
         with open('taskData.json', "w") as taskJson:
             json.dump(tasks, taskJson, indent=4)
             taskJson.truncate()
     except Exception as e:
-        print("There was an error deleting the data: ", e)
+        interface.printError("There was an error deleting the data: ", e)
     
-    input("You tasks is now deleted press enter to continue")    
+    interface.UserInput("You tasks is now deleted press enter to continue\n")    
 
 
 if __name__ == "__main__":
