@@ -101,18 +101,25 @@ deleteEntry: Removes the item from the list and truncates/rewrites the JSON file
 ### 📂 Repository Structure
 
 ```text
+
 TaskTracker/
+│
 ├── main.py                  # Entry point (Menu loop)
 ├── index.py                 # Dashboard/Home logic
-├── userInput.py             # Handles console inputs and validation
-├── jsonHandler.py           # Handles reading/writing to JSON
-├── getDate.py               # Date parsing logic
 ├── taskData.json            # Persistent data storage
-└── taskFunctions/           # Specific feature modules
+│
+└── taskFunctions/           # main feature modules
     ├── addTask.py
-    ├── showTask.py
     ├── editTask.py
-    └── deleteTask.py
+    ├── deleteTask.py
+    ├── showTask.py
+    │
+    └── utils/                 # utils
+        ├── __init__.py     
+        ├── userInteraction.py # Handles console inputs and validation
+        ├── searchUtils.py     #
+        ├── dateUtils.py     Date parsing logic
+        └── jsonHandler.py   Handles reading/writing to JSON
 ```
 ### How to Run
 1. Open the repository in Terminal
