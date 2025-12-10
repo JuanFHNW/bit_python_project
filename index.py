@@ -1,46 +1,53 @@
+"""Main module for the task tracker application."""
 import datetime
 import jsonHandler
 import interface
 
-#delete tasks which are older than today
-def deleteOldTasks():
-    tasks = jsonHandler.getJsonTasks()
+
+def delete_old_tasks():
+    """Delete tasks which are older than today."""
+    tasks = jsonHandler.get_json_tasks()
 
     today = datetime.date.today()
-    tasksToKeep = []
-    oldTasks = []
-    #take the tasks from up to today and overwrite the json file
+    tasks_to_keep = []
+    old_tasks = []
+    # Take the tasks from up to today and overwrite the json file
     for task in tasks:
         try:
             year, month, day = map(int, task["date"].split('-'))
-            dateObj = datetime.date(year, month, day)
+            date_obj = datetime.date(year, month, day)
         except ValueError:
-            interface.printError("Error date at analyzing the json file")
+            interface.print_error("Error date at analyzing the json file")
             continue
-        if dateObj >= today:
-            tasksToKeep.append(task)
+        if date_obj >= today:
+            tasks_to_keep.append(task)
         else:
-            oldTasks.append(task)
-    if task != tasksToKeep:
-        if(jsonHandler.overwriteAllTasks(tasksToKeep)):
-            for deletedTask in oldTasks:
-                interface.printMsg(f"Task {deletedTask['date']}: {deletedTask['description']} deleted")
+            old_tasks.append(task)
+    if task != tasks_to_keep:
+        if jsonHandler.overwrite_all_tasks(tasks_to_keep):
+            for deleted_task in old_tasks:
+                interface.print_msg(
+                    f"Task {deleted_task['date']}: {deleted_task['description']} deleted"
+                )
         else:
-            interface.printError("Error at deleting old tasks")
+            interface.print_error("Error at deleting old tasks")
 
-def showHome():
-    #delete tasks which are older than today
-    deleteOldTasks()
-    tasks = jsonHandler.getJsonTasks()
+
+def show_home():
+    """Display home screen with upcoming tasks."""
+    # Delete tasks which are older than today
+    delete_old_tasks()
+    tasks = jsonHandler.get_json_tasks()
     tasks.sort(key=lambda task: task['date'])
 
     if len(tasks) > 0:
-        #take the first 3 tasks
-        upcomingTasks = tasks[:3]
-        interface.printTasks(upcomingTasks,"Your upcoming tasks: ")
+        # Take the first 3 tasks
+        upcoming_tasks = tasks[:3]
+        interface.print_tasks(upcoming_tasks, "Your upcoming tasks: ")
     else:
-        interface.printMsg("You have no tasks right now")
-    interface.printHome()
+        interface.print_msg("You have no tasks right now")
+    interface.print_home()
+
 
 if __name__ == "__main__":
-    showHome()
+    show_home()

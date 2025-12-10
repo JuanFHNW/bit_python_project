@@ -1,29 +1,32 @@
+"""Main entry point for the task tracker application."""
 import sys
-import taskFunctions.addTask as addTask
-import taskFunctions.showTask as showTask
-import taskFunctions.editTask as editTask
-import taskFunctions.deleteTask as deleteTask
+import taskFunctions.addTask as add_task
+import taskFunctions.showTask as show_task
+import taskFunctions.editTask as edit_task
+import taskFunctions.deleteTask as delete_task
 import index
 
 
 def main():
-    exit = False    
+    """Run the main event loop for the task tracker."""
+    should_exit = False
 
-    while exit == False:
-        index.showHome()
-        userActionHome = input("Chose an option 1-5\n")
-        match userActionHome:
+    while not should_exit:
+        index.show_home()
+        user_action_home = input("Chose an option 1-5\n")
+        match user_action_home:
             case "1":
-                showTask.showTask()
+                show_task.show_task()
             case "2":
-                addTask.addTask()
+                add_task.add_task()
             case "3":
-                editTask.editTask()
+                edit_task.edit_task()
             case "4":
-                deleteTask.deleteTask()
+                delete_task.delete_task()
             case "5":
-                #quit programme
-                sys.exit()      
+                # Quit programme
+                sys.exit()
+
 
 if __name__ == "__main__":
     main()

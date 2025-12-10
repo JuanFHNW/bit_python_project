@@ -1,27 +1,41 @@
+"""Module for editing tasks in the task tracker."""
 import jsonHandler
-import interface 
+import interface
 import taskFunctions.utils.taskUtils as taskUtils
 
-def editTask():
-    #get the tasks from the json data
-    tasks = jsonHandler.getJsonTasks()
-    #if user wants to search by description or date
-    userSearch = interface.getUserIndex(0, 1,f"Type 0 to search for a description of your task or type 1 for a date\n")
-    #get matching tasks depending user input description or date, if the return from the get function is null the user wants to quit
-    foundTasks = taskUtils.getMatchingTasks(tasks, userSearch)
-    if not foundTasks:
+
+def edit_task():
+    """Get user input and edit a task in the JSON file."""
+    # Get the tasks from the json data
+    tasks = jsonHandler.get_json_tasks()
+    # If user wants to search by description or date
+    user_search = interface.get_user_index(
+        0, 1,
+        "Type 0 to search for a description of your task or type 1 for a date\n"
+    )
+    # Get matching tasks depending on user input (description or date)
+    # If the return from the get function is None, the user wants to quit
+    found_tasks = taskUtils.get_matching_tasks(tasks, user_search)
+    if not found_tasks:
         return None
-    #get specific task which should be edited
-    selectedTask = taskUtils.getSpecificTask(foundTasks, "The follwing tasks were found. Write down the corresponding number for the task you want to edit. \n")
+    # Get specific task which should be edited
+    selected_task = taskUtils.get_specific_task(
+        found_tasks,
+        "The follwing tasks were found. Write down the corresponding number for the task you want to edit. \n"
+    )
 
-    #get new date and description of the task which to which it will be updated
-    newDate = interface.getInputDate("Write down the new date in the following format: \nyyyy.mm.dd\n")
-    newDesc = interface.getInputDescription("Write down the new description of the task: \n")
+    # Get new date and description for the task which it will be updated to
+    new_date = interface.get_input_date(
+        "Write down the new date in the following format: \nyyyy.mm.dd\n"
+    )
+    new_desc = interface.get_input_description(
+        "Write down the new description of the task: \n"
+    )
 
-    #update the task
-    jsonHandler.updateEntry(selectedTask, newDesc, newDate)
-    interface.waitForUser("You tasks is now updated press enter to continue\n")    
+    # Update the task
+    jsonHandler.update_entry(selected_task, new_desc, new_date)
+    interface.wait_for_user("You tasks is now updated press enter to continue\n")
 
-       
+
 if __name__ == "__main__":
-    editTask()
+    edit_task()
