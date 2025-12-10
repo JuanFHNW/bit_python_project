@@ -1,7 +1,7 @@
 # Task Tracker
 A robust, console-based tool for managing daily tasks, designed with a focus on clean code structure, data validation, and persistent storage.
 
-## 📝 Analysis
+## 📝 Analysis & Context
 
 **Problem**
 Users struggle to efficiently manage their daily tasks, such as homework, assignments and personal to-do's, because they don’t have a simple and reliable way to organize, edit, and save their tasks. Without the TaskTracker, users find it difficult to manage their workload and keep track of what needs to be done.
@@ -9,83 +9,75 @@ Users struggle to efficiently manage their daily tasks, such as homework, assign
 **Scenario**
 TaskTracker offers a minimalist and efficient solution to this problem. A user opens the application in the console and immediately sees their most urgent tasks. They can add new entries with a due date and a description. The system ensures that no invalid data (e.g., dates in the past or empty descriptions) is entered. All changes are immediately saved in a local JSON file, ensuring data remains available even after restarting the computer.
 
+## 🚀 Key Features
+
+* **Dashboard View:** Instantly shows the top 3 upcoming tasks upon launch.
+* **Automatic Cleanup:** Tasks older than "today" are automatically deleted to keep the list fresh.
+* **Smart Search:** Find tasks by searching for a specific **Date** or a keyword in the **Description**.
+* **Data Validation:**
+    * Prevents entering past dates.
+    * Ensures descriptions are not empty.
+    * Validates date formats (`yyyy.mm.dd`).
+* **Persistence:** All data is saved to a JSON file (`task_data.json`) automatically.
+* **Error Handling:** Gracefully handles corrupt data files or invalid user inputs without crashing.
+
 **User stories:**
-1. As a user, I want to be able to search for a date or a description of a stored task and view them so I can efficiently plan my activities.
-2. As a user, I want to add a new task by providing both a valid future date and a non-empty description So that I can easily register all my future obligations and ensure that my data is valid from the start.
-3. As a user, I want to find a specific task (after searching by date or description) and be able to update its date and description with new, validated information so that I can keep my schedule flexible and up-to-date when plans change, without needing to create a new task.
-4. As a user, I want to easily select and delete specific tasks, so I can remove completed or outdated entries and keep my workload focused and free of clutter.
-5. As a user, I want to be certain that all my tasks are automatically saved and immediately available and displayed when I restart the application, so I never lose my workload data.
-6. As a user, I want tasks that are older than "today" to be deleted automatically when I start the app, so that my dashboard is not disturbed with irrelevant history.
-7. As a user, I want the option to cancel/quit an action (by typing '1') while I am entering data, so that I am not forced to finish a task entry if I change my mind.
-8. As a user, I want to see a dashboard of the next 3 tasks immediately upon opening the app, so I get a quick status update without clicking through menus.
+1.  **As a user**, I want to be able to **search for a date or a description** of a stored task and view them so I can efficiently plan my activities.
+2.  **As a user**, I want to **add a new task** by providing both a valid future date and a non-empty description, so that I can ensure my schedule is accurate from the start.
+3.  **As a user**, I want to **find a specific task** (via search) and **update its date or description** with new, validated information, allowing me to adapt to changing plans.
+4.  **As a user**, I want to **select and delete specific tasks** easily, so I can remove completed or outdated entries and keep my workload focused.
+5.  **As a user**, I want to be certain that **all my tasks are automatically saved** and restored when I restart the application, ensuring I never lose data.
+6.  **As a user**, I want tasks that are **older than "today" to be deleted automatically** upon startup, keeping my dashboard free of irrelevant history.
+7.  **As a user**, I want the option to **cancel/quit an action** (by typing '1') while entering data, so I am not forced to finish a task entry if I change my mind.
+8.  **As a user**, I want to see a **dashboard of the next 3 tasks** immediately upon opening the app, providing a quick status update without navigating menus.
 
 ## ⚙️ Use Cases
 
 The following Use Cases describe the exact interaction flow between the User and the System, including valid inputs and error handling.
 
-### UC1: Start Dashboard & Auto-Cleanup (Covers Stories 5, 6, 8)
-* **Actor:** User / System
-* **Preconditions:** `task_data.json` exists (or is created).
-* **Flow:**
-    1.  User starts the program (System runs `main.py`).
-    2.  **System** automatically scans for tasks where the date is older than `today`.
-    3.  **System** permanently removes these outdated tasks to clean up the database.
-    4.  **System** loads the remaining tasks and sorts them chronologically.
-    5.  **System** displays the **Main Menu** and the **next 3 upcoming tasks** under the header "Your upcoming tasks".
-* **Alternative Flow:**
-    * *No Tasks:* If the list is empty, the System displays "You have no tasks right now".
+### UC1: Launch & Auto-Cleanup
+* **Trigger:** User runs `main.py`.
+* **System Action:**
+    1.  Loads data from `task_data.json`.
+    2.  Compares task dates against `datetime.date.today()`.
+    3.  **Auto-Deletes** any task strictly older than today.
+    4.  Sorts the remaining tasks chronologically.
+    5.  Displays the **Main Menu** and the **Top 3 Upcoming Tasks**.
 
-### UC2: Add New Task (Covers Stories 2, 5, 7)
-* **Actor:** User
-* **Preconditions:** Main Menu is active.
+### UC2: Add Task
+* **Trigger:** User selects Option `2`.
 * **Flow:**
-    1.  User selects Option `2` (**Add task**).
-    2.  System prompts for the date (Format: `yyyy.mm.dd`).
-    3.  User enters a valid date that is **today or in the future**.
-    4.  System prompts for the description.
-    5.  User enters a **non-empty** text description.
-    6.  System saves the task persistently to `task_data.json`.
-    7.  System confirms: "Your task is now added".
-* **Alternative Flow (Cancel):**
-    * User enters `1` during input. System aborts and returns to the Main Menu.
-* **Alternative Flow (Invalid Input):**
-    * User enters a past date or empty description. System displays an error (e.g., "The date can't be in the past") and repeats the prompt.
+    1.  System prompts for date (`yyyy.mm.dd`).
+    2.  **Validation:** Checks if format is correct AND if date is $\ge$ today.
+    3.  System prompts for description (must not be empty).
+    4.  System appends the new task to the JSON file and confirms success.
+* **Alternative:** User types `'1'` during input to **Cancel** and return to menu.
 
-### UC3: Search & View Tasks (Covers Stories 1)
-* **Actor:** User
-* **Preconditions:** Main Menu is active.
+### UC3: Search & View
+* **Trigger:** User selects Option `1`.
 * **Flow:**
-    1.  User selects Option `1` (**Show your tasks**).
-    2.  System asks for the search mode: `0` for **Description**, `1` for **Date**.
-    3.  User selects a mode and enters the search term (e.g., "Groceries" or "2025.12.24").
-    4.  System performs a **case-insensitive search**.
-    5.  System lists all matching tasks with their details.
-    6.  User presses Enter to return to the Main Menu.
+    1.  User chooses search mode: `0` (Description) or `1` (Date).
+    2.  User enters search term (e.g., "Doctor" or "2025.12.24").
+    3.  System performs a **case-insensitive search** using `task_utils.py`.
+    4.  Displays all matching results.
 
-### UC4: Edit Task (Covers Stories 3, 5, 7)
-* **Actor:** User
-* **Preconditions:** User wants to modify an existing entry.
+### UC4: Edit Task
+* **Trigger:** User selects Option `3`.
 * **Flow:**
-    1.  User selects Option `3` (**Edit task**).
-    2.  **Search Step:** User performs a search (as defined in **UC3**) to narrow down the list.
-    3.  System displays matching tasks with **Index Numbers** (0, 1, 2...).
-    4.  User enters the index of the task to modify.
-    5.  System requests the **new date** and **new description** (with validation).
-    6.  System overwrites the specific entry in the JSON file with the new data.
-    7.  System confirms the update.
+    1.  User performs a **Search** (see UC3) to isolate the task.
+    2.  System lists matches with an **Index ID**.
+    3.  User selects the ID of the task to edit.
+    4.  System requests new Date and Description (with validation).
+    5.  System overwrites the specific entry in the JSON file.
 
-### UC5: Delete Task (Covers Stories 4, 5, 7)
-* **Actor:** User
-* **Preconditions:** User wants to remove an entry.
+### UC5: Delete Task
+* **Trigger:** User selects Option `4`.
 * **Flow:**
-    1.  User selects Option `4` (**Delete task**).
-    2.  **Search Step:** User performs a search to find the task.
-    3.  User selects the task via its Index Number.
-    4.  System asks for **explicit confirmation**: "Are you sure you want to delete: [Task Details]?".
-    5.  User confirms by typing `1`.
-    6.  System permanently deletes the task from `task_data.json`.
-* **Alternative Flow (Abort):**
-    * User types `2` at confirmation. System displays "Action delete Task is cancelled" and keeps the data.
+    1.  User performs a **Search** to find the task.
+    2.  User selects the ID of the task to delete.
+    3.  **Safety Check:** System asks "Are you sure you want to delete...?"
+    4.  User confirms with `'1'`.
+    5.  System permanently removes the entry.
 
 
 ## ✅ Project Requirements
@@ -159,27 +151,50 @@ deleteEntry: Removes the item from the list and truncates/rewrites the JSON file
 - Environment: Visual Studio Code
 - Standard Libraries: json, datetime, sys
 
-### 📂 Repository Structure
+### 🏗️ Architecture & Design
+This project follows the **Separation of Concerns** principle to ensure maintainability and testability. The application is divided into distinct layers:
 
 ```text
 
 TaskTracker/
 │
-├── main.py                  # Entry point (Menu loop)
-├── index.py                 # Dashboard/Home logic
-├── interface.py             # UI Layer: Input/Output & Validierung
-├── jsonHandler.py           # Data Layer: store/load
-├── taskData.json            # Persistent data store
+├── main.py                  # [Controller] Entry Point: Runs the main event loop & menu
+├── index.py                 # [Controller] Dashboard Logic: Handles startup checks & auto-cleanup
+├── interface.py             # [View] UI Layer: Handles all console output and user input
+├── json_handler.py          # [Model] Data Layer: Pure backend logic for JSON Read/Write
+├── task_data.json           # [Database] The persistent storage file
 │
-└── taskFunctions/           # Controller Layer 
-    ├── addTask.py
-    ├── editTask.py
-    ├── deleteTask.py
-    ├── showTask.py
+└── task_functions/          # [Logic] Feature Modules
+    ├── add_task.py          # Workflow for creating tasks
+    ├── edit_task.py         # Workflow for updating tasks
+    ├── delete_task.py       # Workflow for removing tasks
+    ├── show_task.py         # Workflow for searching/viewing
     │
-    └── utils/               # Logic layer (pure algorithm)
-        └── taskUtils.py     # search, filter & selection-Workflows
+    └── utils/
+        └── task_utils.py    # [Helper] Algorithms for sorting & filtering
 ```
+graph TD
+    Start([Start Program]) --> MainLoop{Main Loop}
+    MainLoop -->|1. Cleanup & Display| ShowHome[index.show_home]
+    ShowHome --> UserInput[/User Input: Option 1-5/]
+    
+    UserInput -->|1| Show[show_task.show_task]
+    UserInput -->|2| Add[add_task.add_task]
+    UserInput -->|3| Edit[edit_task.edit_task]
+    UserInput -->|4| Delete[delete_task.delete_task]
+    UserInput -->|5| Exit([sys.exit])
+    
+    Show --> Wait[interface.wait_for_user]
+    Add --> Wait
+    Edit --> Wait
+    Delete --> Wait
+    
+    Wait -->|Press Enter| MainLoop
+    
+    style Start fill:#98c379,stroke:#333,stroke-width:2px,color:black
+    style Exit fill:#e06c75,stroke:#333,stroke-width:2px,color:black
+    style MainLoop fill:#61afef,stroke:#333,stroke-width:2px,color:black
+
 ### How to Run
 1. Open the repository in Terminal
 2. Open the Terminal
