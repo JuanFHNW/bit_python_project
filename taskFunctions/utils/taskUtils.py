@@ -23,7 +23,7 @@ def getTasksbyDescription(tasks, searchTerm):
 
 # 0 = user wants to search for description, 1 = user wants to search for a date
 def getMatchingTasks(tasks, userSearch):
-    if userSearch == "0":
+    if userSearch == 0:
             while True:
                 inputDesc = interface.getInputDescription("Write down the description of the task you want to search\n")
                 if inputDesc == "1":
@@ -32,9 +32,9 @@ def getMatchingTasks(tasks, userSearch):
                 if foundTasks:
                     return foundTasks
                 else:
-                    interface.printMsg("No tasks matching this description were found. Please try again or type '1' to quit.\n")
+                    interface.printMsg("No tasks matching this description were found. Please try again or type '1' to quit.")
 
-    elif userSearch == "1":
+    elif userSearch == 1:
         while True:
             inputDate = interface.getInputDate("Write down the date of the task you want to search\n", 1)
             if inputDate == "1":

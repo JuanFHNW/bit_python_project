@@ -3,7 +3,7 @@ import taskFunctions.addTask as addTask
 import taskFunctions.showTask as showTask
 import taskFunctions.editTask as editTask
 import taskFunctions.deleteTask as deleteTask
-import index as index
+import index
 
 
 def main():

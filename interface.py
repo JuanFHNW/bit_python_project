@@ -23,6 +23,7 @@ def getDateOrDescription():
 #asking user for a date input
 #if argument quit = 1 then user is allowed to type 1.
 def getInputDate(prompt, quit = 0):
+    today = datetime.date.today()
     while True:
         inputDate = input(prompt)
         if quit == 1:
@@ -31,7 +32,10 @@ def getInputDate(prompt, quit = 0):
         try:
             year, month, day = map(int, inputDate.split('.'))
             dateObj = datetime.date(year, month, day)
-            return dateObj 
+            if dateObj >= today:
+                return dateObj 
+            else:
+                print("The Date can't be in the past")
         except ValueError:
             print("Invalid input! Please use the format: yyyy.mm.dd")
 
@@ -44,6 +48,7 @@ def getInputDescription(prompt):
             else:
                 print("Your input can't be empty")
 
+#print tasks
 #if showIndex = 1 then the index of the tast is displayed
 def printTasks(tasks, prompt, showIndex = 0):
     print(prompt)
@@ -60,6 +65,7 @@ def printError(prompt):
 def printMsg(prompt):
     print(prompt)
 
+#get an index from the user
 def getUserIndex(minLength, maxLength, prompt):
     while True: 
         InputIndex = input(prompt)

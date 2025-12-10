@@ -12,6 +12,7 @@ def addTask():
         }
     #add task data to json file
     jsonHandler.addEntries(newTask)
+    interface.waitForUser("You tasks is now added press enter to continue\n")   
 
  
 if __name__ == "__main__":

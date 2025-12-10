@@ -28,8 +28,7 @@ def addEntries(task):
             taskJson.truncate()
     except Exception as e:
         interface.printError("There was an error storing the data:", e)
-
-    interface.waitForUser("You tasks is now added press enter to continue\n")    
+ 
 
 
 def updateEntry(editTask, newDesc, newDate):
@@ -43,8 +42,7 @@ def updateEntry(editTask, newDesc, newDate):
                 break
     with open('taskData.json', "w") as taskJson:
         json.dump(jsTasks, taskJson, indent=4)
-        interface.waitForUser("You tasks is now updated press enter to continue\n")    
-
+        
 def deleteEntry(delTask,tasks):
     eraseTask = next((i for i, item in enumerate(tasks)
         if item["date"] == delTask["date"] and item["description"] == delTask["description"]),
@@ -62,9 +60,18 @@ def deleteEntry(delTask,tasks):
             taskJson.truncate()
     except Exception as e:
         interface.printError("There was an error deleting the data: ", e)
-    
-    interface.waitForUser("You tasks is now deleted press enter to continue\n")    
 
+#overwrite the whole tasks in the json file
+def overwriteAllTasks(tasks):   
+    try:
+        with open('taskData.json', "w") as taskJson:
+            json.dump(tasks, taskJson, indent=4)
+        
+    except Exception as e:
+        interface.printError(f"Error overwriting the tasks: {e}")
+        return False
+    return True
+        
 
 if __name__ == "__main__":
     tasks = getJsonTasks()
