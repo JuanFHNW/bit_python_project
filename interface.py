@@ -4,6 +4,7 @@ import datetime
 
 
 def print_home():
+    """Display home screen with main menu options."""
     print("\n==== TASK PLANNER MENU ====")
     print("1. Show your tasks")
     print("2. Add task")
@@ -15,9 +16,13 @@ def print_home():
 
 def get_input_date(prompt, allow_quit=False):
     """Prompt for a date in yyyy.mm.dd format.
-
-    If ``allow_quit`` is True the user may enter the string "1" to quit.
-    Returns a ``datetime.date`` on success or the string "1" when quitting.
+    Args:
+        prompt (str): The message to display to the user.
+        allow_quit (bool, optional): If True, allows the user to enter '1' to quit. 
+                                     Defaults to False.
+    Returns:
+        datetime.date or str: The validated date object on success, or the 
+                              string "1" if quitting is allowed and chosen.
     """
     today = datetime.date.today()
     while True:
@@ -27,7 +32,7 @@ def get_input_date(prompt, allow_quit=False):
         try:
             year, month, day = map(int, input_date.split('.'))
             date_obj = datetime.date(year, month, day)
-            if date_obj >= today:
+            if date_obj >= today:  # Check if date is today or in the future
                 return date_obj
             print("The date can't be in the past")
         except ValueError:
@@ -35,7 +40,11 @@ def get_input_date(prompt, allow_quit=False):
 
 
 def get_input_description(prompt):
-    """Prompt for a non-empty description string."""
+    """Prompt for a non-empty description string.
+    Args:
+        prompt (str): The message to display to the user.
+    Returns:
+        str: The user-entered, non-empty description string."""
     while True:
         user_input_desc = input(prompt).strip()
         if user_input_desc:
@@ -48,6 +57,11 @@ def print_tasks(tasks, prompt, show_index=False):
 
     Each task is expected to be a dict containing the keys ``'date'`` and
     ``'description'``.
+    Args:
+        tasks (list): The list of task dictionaries to print.
+        prompt (str): The header message to display before the list.
+        show_index (bool, optional): If True, prints the index number for each task. 
+                                     Defaults to False.
     """
     print(prompt)
     if show_index:
@@ -59,17 +73,27 @@ def print_tasks(tasks, prompt, show_index=False):
 
 
 def print_error(message):
+    """printe an error message.
+    Args:
+        prompt (str): The error message to display to the user."""
     print(f"Error: {message}")
 
 
 def print_msg(message):
+    """print a message.
+    Args:
+        prompt (str): The message to display to the user."""
     print(message)
 
 
 def get_user_index(min_length, max_length, prompt):
-    """Prompt for an integer index between ``min_length`` and ``max_length``.
-
-    Both bounds are inclusive.
+    """Prompt for an integer index between min_length (inclusive) and max_length (inclusive).
+    Args:
+        min_length (int): The minimum allowed index value.
+        max_length (int): The maximum allowed index value.
+        prompt (str): The message to display to the user.
+    Returns:
+        int: The validated integer index.
     """
     while True:
         input_index = input(prompt)
@@ -83,6 +107,10 @@ def get_user_index(min_length, max_length, prompt):
 
 
 def wait_for_user(prompt):
+    """Displays a prompt and waits for the user to press Enter.
+    Args:
+        prompt (str): The message to display to the user.
+    """
     input(prompt)
 
 

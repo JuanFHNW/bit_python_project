@@ -7,7 +7,7 @@ def get_json_tasks():
     """Load tasks from the task_data.json file.
     
     Returns:
-        List of task dictionaries or empty list if file not found/corrupted.
+        list: List of task dictionaries or empty list if file not found/corrupted.
     """
     try:
         with open('task_data.json', "r") as task_json:
@@ -32,7 +32,7 @@ def add_entries(task):
     """Add a new task entry to the JSON file.
     
     Args:
-        task: Task dictionary to add.
+        task (ictionary): Task dictionary to add.
     """
     try:
         with open('task_data.json', "r+") as task_json:
@@ -49,37 +49,38 @@ def update_entry(edit_task, new_desc, new_date):
     """Update an existing task entry in the JSON file.
     
     Args:
-        edit_task: Task dictionary to find and update.
-        new_desc: New description for the task.
-        new_date: New date for the task.
+        edit_task (dictionary): Task dictionary to find and update.
+        new_desc (str): New description for the task.
+        new_date (str): New date for the task.
     """
     with open('task_data.json', "r") as task_json:
         js_tasks = json.loads(task_json.read())
-
+        # Search for the matching task
         for js_task in js_tasks:
             if (edit_task["description"] == js_task.get("description") and
                     edit_task["date"] == js_task.get("date")):
                 js_task["description"] = new_desc
                 js_task["date"] = new_date.isoformat()
                 break
+    # Overwrite the matching task
     with open('task_data.json', "w") as task_json:
         json.dump(js_tasks, task_json, indent=4)
 
 
 def delete_entry(del_task, tasks):
-    """Delete a task entry from the JSON file.
-    
+    """Delete a task entry from the JSON file.  
     Args:
-        del_task: Task dictionary to delete.
-        tasks: List of all tasks.
+        del_task (dictionary): Task dictionary to delete.
+        tasks (list): List of all tasks.
     """
+    # Search for the matching task to delete
     erase_task = next(
         (i for i, item in enumerate(tasks)
          if item["date"] == del_task["date"] and
          item["description"] == del_task["description"]),
         None
     )
-
+    # Delete the task
     if erase_task is not None:
         del tasks[erase_task]
         interface.print_msg("Task deleted")
@@ -98,11 +99,11 @@ def overwrite_all_tasks(tasks):
     """Overwrite all tasks in the JSON file.
     
     Args:
-        tasks: List of task dictionaries to write.
+        tasks (list): List of task dictionaries to write.
         
     Returns:
         True if successful, False otherwise.
-    """   
+    """ 
     try:
         with open('task_data.json', "w") as task_json:
             json.dump(tasks, task_json, indent=4)

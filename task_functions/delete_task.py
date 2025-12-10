@@ -22,9 +22,9 @@ def delete_task():
     # Get the specific task which should be deleted
     selected_task = task_utils.get_specific_task(
         found_tasks,
-        "The follwing tasks were found. Write down the corresponding number for the task you want to edit. \n"
+        "The follwing tasks were found. Write down the corresponding number for the task you want to edit.\n"
     )
-
+    # Get conformation to delete the task
     user_confirm = interface.get_user_index(
         1, 2,
         f"Are you sure you want to delete: {selected_task['date']}: {selected_task['description']}?\n"

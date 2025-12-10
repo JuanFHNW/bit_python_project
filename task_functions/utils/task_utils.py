@@ -4,7 +4,14 @@ import interface
 
 
 def get_tasks_by_date(tasks, target_date):
-    """Compare target date with the date of the tasks."""
+    """Compare target date with the date of the tasks.
+    Args:
+        tasks (list): List of task dictionaries.
+        target_date (datetime.date): The date to filter tasks by.
+        
+    Returns:
+        list: A list of task dictionaries matching the target date.
+    """
     found_tasks = []
     tasks.sort(key=lambda task: task['description'].lower())
     for task in tasks:
@@ -15,7 +22,13 @@ def get_tasks_by_date(tasks, target_date):
 
 
 def get_tasks_by_description(tasks, search_term):
-    """Compare search term with the description of the tasks."""
+    """Compare search term with the description of the tasks.
+    Args:
+        tasks (list): List of task dictionaries.
+        search_term (str): The term to search for in task descriptions (case-insensitive).
+        
+    Returns:
+        list: A list of task dictionaries whose description contains the search term."""
     found_tasks = []
     tasks.sort(key=lambda task: task['date'])
     for task in tasks:
@@ -38,10 +51,10 @@ def get_matching_tasks(tasks, user_search):
     found_tasks = None
     if user_search == 0:
         while True:
-            input_desc = interface.getInputDescription(
+            input_desc = interface.get_input_description(
                 "Write down the description of the task you want to search\n"
             )
-            if input_desc == "1":
+            if input_desc == "1":  # If user want's to quit
                 return None
             found_tasks = get_tasks_by_description(tasks, input_desc)
             if found_tasks:
@@ -56,7 +69,7 @@ def get_matching_tasks(tasks, user_search):
             input_date = interface.get_input_date(
                 "Write down the date of the task you want to search\n", 1
             )
-            if input_date == "1":
+            if input_date == "1":  # If user want's to quit
                 return None
             found_tasks = get_tasks_by_date(tasks, input_date)
             if found_tasks:
@@ -79,6 +92,7 @@ def get_specific_task(found_tasks, prompt):
     Returns:
         The selected task dictionary
     """
+    # If there is just one task found
     if len(found_tasks) == 1:
         task_msg = (
             f"This matching task was found: {found_tasks[0]['date']}: "
@@ -86,14 +100,13 @@ def get_specific_task(found_tasks, prompt):
         )
         interface.print_msg(task_msg)
         return found_tasks[0]
-    
+    # If multiple tasks were found
     while True:
-        interface.print_tasks(found_tasks, prompt, 1)
-        # Get user index for the task
+        interface.print_tasks(found_tasks, prompt, 1)  # Print all founded tasks
+        # Get user index of the task to edit
         input_spec_task = interface.get_user_index(
             0, len(found_tasks) - 1,
-            f"Write the number (0 - {len(found_tasks) - 1}) "
-            f"of the task you want to edit:\n"
+            f"Write the number (0 - {len(found_tasks) - 1}) of the task you want to edit:\n"
         )
         task_msg = (
             f"The chosen task: {found_tasks[input_spec_task]['date']}: "

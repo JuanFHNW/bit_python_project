@@ -21,7 +21,7 @@ def edit_task():
     # Get specific task which should be edited
     selected_task = task_utils.get_specific_task(
         found_tasks,
-        "The follwing tasks were found. Write down the corresponding number for the task you want to edit. \n"
+        "The follwing tasks were found. Write down the corresponding number for the task you want to edit.\n"
     )
 
     # Get new date and description for the task which it will be updated to
@@ -29,7 +29,7 @@ def edit_task():
         "Write down the new date in the following format: \nyyyy.mm.dd\n"
     )
     new_desc = interface.get_input_description(
-        "Write down the new description of the task: \n"
+        "Write down the new description of the task:\n"
     )
 
     # Update the task
