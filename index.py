@@ -11,7 +11,7 @@ def delete_old_tasks():
     today = datetime.date.today()
     tasks_to_keep = []
     old_tasks = []
-    # Take the tasks from up to today and overwrite the json file
+    # Take the tasks from up to today
     for task in tasks:
         try:
             year, month, day = map(int, task["date"].split('-'))
@@ -23,7 +23,8 @@ def delete_old_tasks():
             tasks_to_keep.append(task)
         else:
             old_tasks.append(task)
-    if task != tasks_to_keep:
+    # Overwrite json file if there are old tasks
+    if tasks != tasks_to_keep:
         if json_handler.overwrite_all_tasks(tasks_to_keep):
             for deleted_task in old_tasks:
                 interface.print_msg(
