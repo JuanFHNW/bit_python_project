@@ -14,7 +14,7 @@ def showTask():
         return None
     #print the tasks
     interface.printTasks(foundTasks, "You have this matching task(s):")
-    interface.waitForUser()
+    interface.waitForUser("You tasks is now updated press enter to continue\n")
     
 if __name__ == "__main__":
     showTask()
