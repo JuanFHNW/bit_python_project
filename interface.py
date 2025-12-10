@@ -9,16 +9,6 @@ def printHome():
     print("5 Exit")
     print("========================")
 
-#asking user wethever the user wants to search for a date or description
-def getDateOrDescription():
-    while True:
-        userInputSearch = input("Type 0 to search for a description of your task or type 1 for a date\n")
-        if userInputSearch == "0":
-            return userInputSearch
-        elif userInputSearch == "1":
-            return userInputSearch
-        else:
-            print("Please try again. Only number 0 and 1 are allowed.")
 
 #asking user for a date input
 #if argument quit = 1 then user is allowed to type 1.
