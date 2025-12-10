@@ -1,13 +1,13 @@
 """Module for editing tasks in the task tracker."""
-import jsonHandler
+import json_handler
 import interface
-import taskFunctions.utils.taskUtils as taskUtils
+import task_functions.utils.task_utils as task_utils
 
 
 def edit_task():
     """Get user input and edit a task in the JSON file."""
     # Get the tasks from the json data
-    tasks = jsonHandler.get_json_tasks()
+    tasks = json_handler.get_json_tasks()
     # If user wants to search by description or date
     user_search = interface.get_user_index(
         0, 1,
@@ -15,11 +15,11 @@ def edit_task():
     )
     # Get matching tasks depending on user input (description or date)
     # If the return from the get function is None, the user wants to quit
-    found_tasks = taskUtils.get_matching_tasks(tasks, user_search)
+    found_tasks = task_utils.get_matching_tasks(tasks, user_search)
     if not found_tasks:
         return None
     # Get specific task which should be edited
-    selected_task = taskUtils.get_specific_task(
+    selected_task = task_utils.get_specific_task(
         found_tasks,
         "The follwing tasks were found. Write down the corresponding number for the task you want to edit. \n"
     )
@@ -33,7 +33,7 @@ def edit_task():
     )
 
     # Update the task
-    jsonHandler.update_entry(selected_task, new_desc, new_date)
+    json_handler.update_entry(selected_task, new_desc, new_date)
     interface.wait_for_user("You tasks is now updated press enter to continue\n")
 
 

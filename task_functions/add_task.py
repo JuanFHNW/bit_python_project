@@ -1,5 +1,5 @@
 """Module for adding new tasks to the task tracker."""
-import jsonHandler
+import json_handler
 import interface
 
 
@@ -19,7 +19,7 @@ def add_task():
         "description": input_description
     }
     # Add task data to json file
-    jsonHandler.add_entries(new_task)
+    json_handler.add_entries(new_task)
     interface.wait_for_user("You tasks is now added press enter to continue\n")
 
 

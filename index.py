@@ -1,12 +1,12 @@
 """Main module for the task tracker application."""
 import datetime
-import jsonHandler
+import json_handler
 import interface
 
 
 def delete_old_tasks():
     """Delete tasks which are older than today."""
-    tasks = jsonHandler.get_json_tasks()
+    tasks = json_handler.get_json_tasks()
 
     today = datetime.date.today()
     tasks_to_keep = []
@@ -24,7 +24,7 @@ def delete_old_tasks():
         else:
             old_tasks.append(task)
     if task != tasks_to_keep:
-        if jsonHandler.overwrite_all_tasks(tasks_to_keep):
+        if json_handler.overwrite_all_tasks(tasks_to_keep):
             for deleted_task in old_tasks:
                 interface.print_msg(
                     f"Task {deleted_task['date']}: {deleted_task['description']} deleted"
@@ -37,7 +37,7 @@ def show_home():
     """Display home screen with upcoming tasks."""
     # Delete tasks which are older than today
     delete_old_tasks()
-    tasks = jsonHandler.get_json_tasks()
+    tasks = json_handler.get_json_tasks()
     tasks.sort(key=lambda task: task['date'])
 
     if len(tasks) > 0:

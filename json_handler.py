@@ -4,13 +4,13 @@ import interface
 
 
 def get_json_tasks():
-    """Load tasks from the taskData.json file.
+    """Load tasks from the task_data.json file.
     
     Returns:
         List of task dictionaries or empty list if file not found/corrupted.
     """
     try:
-        with open('taskData.json', "r") as task_json:
+        with open('task_data.json', "r") as task_json:
             tasks = json.load(task_json)
             return tasks
     except FileNotFoundError:
@@ -35,7 +35,7 @@ def add_entries(task):
         task: Task dictionary to add.
     """
     try:
-        with open('taskData.json', "r+") as task_json:
+        with open('task_data.json', "r+") as task_json:
             task_file_json = json.load(task_json)
             task_file_json.append(task)
             task_json.seek(0)
@@ -53,7 +53,7 @@ def update_entry(edit_task, new_desc, new_date):
         new_desc: New description for the task.
         new_date: New date for the task.
     """
-    with open('taskData.json', "r") as task_json:
+    with open('task_data.json', "r") as task_json:
         js_tasks = json.loads(task_json.read())
 
         for js_task in js_tasks:
@@ -62,7 +62,7 @@ def update_entry(edit_task, new_desc, new_date):
                 js_task["description"] = new_desc
                 js_task["date"] = new_date.isoformat()
                 break
-    with open('taskData.json', "w") as task_json:
+    with open('task_data.json', "w") as task_json:
         json.dump(js_tasks, task_json, indent=4)
 
 
@@ -87,7 +87,7 @@ def delete_entry(del_task, tasks):
         interface.print_error("No task found")
 
     try:
-        with open('taskData.json', "w") as task_json:
+        with open('task_data.json', "w") as task_json:
             json.dump(tasks, task_json, indent=4)
             task_json.truncate()
     except Exception as e:
@@ -104,7 +104,7 @@ def overwrite_all_tasks(tasks):
         True if successful, False otherwise.
     """   
     try:
-        with open('taskData.json', "w") as task_json:
+        with open('task_data.json', "w") as task_json:
             json.dump(tasks, task_json, indent=4)
 
     except Exception as e:
