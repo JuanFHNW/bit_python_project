@@ -195,6 +195,14 @@ graph TD
     style Exit fill:#e06c75,stroke:#333,stroke-width:2px,color:black
     style MainLoop fill:#61afef,stroke:#333,stroke-width:2px,color:black
 
+### 🏗️ Architecture Overview
+
+Here is the functional call structure of the application:
+
+![Function Call Diagram](assets/function_tree_task_tracker.drawio.png.png)
+
+// Assuming you saved the image as 'function_tree.png' in an 'assets' folder
+
 ### How to Run
 1. Open the repository in Terminal
 2. Open the Terminal
