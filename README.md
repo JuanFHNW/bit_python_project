@@ -197,8 +197,20 @@ graph TD
 
 ### 🏗️ Architecture Overview
 
-The Task Tracker uses a modular structure where main() routes to five core feature functions, all defined in snake_case.
-Core Feature Logic:
+The Task Tracker uses a modular design to ensure clean separation of concerns.
+
+1. Module Dependency Structure
+The application's logic is cleanly separated into distinct modules:
+- main.py is the entry point and runs the main loop.
+- index.py handles startup logic and the dashboard view.
+- task_functions/ contains the main feature workflows (add_task, edit_task, delete_task, show_task).
+- json_handler.py manages all data persistence (read/write to task_data.json).
+- interface.py handles all user I/O (input prompts, printing tasks/errors).
+![Function Call Diagram](assets/module_dependency_task_tracker.drawio.png)
+
+  
+2. Function Call Hierarchy
+The diagram below illustrates the call hierarchy from the main() controller to the core functions for each feature
 - show_home: Cleanup (delete_old_tasks) and Dashboard Display (print_home).
 - add_task: Get Date/Description: get_input_date/get_input_description | Save Entry: add_entries.
 - show_task: Search Tasks: get_matching_tasks | Display Results: print_tasks.
