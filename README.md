@@ -199,9 +199,8 @@ graph TD
 
 Here is the functional call structure of the application:
 
-![Function Call Diagram](assets/function_tree_task_tracker.drawio.png.png)
+![Function Call Diagram](assets/function_tree_task_tracker.drawio.png)
 
-// Assuming you saved the image as 'function_tree.png' in an 'assets' folder
 
 ### How to Run
 1. Open the repository in Terminal
