@@ -197,8 +197,22 @@ graph TD
 
 ### 🏗️ Architecture Overview
 
-Here is the functional call structure of the application:
+The Task Tracker uses a modular structure where main() routes to five core feature functions, all defined in snake_case.
+Core Feature Logic:
+- show_home: Cleanup (delete_old_tasks) and Dashboard Display (print_home).
+- add_task: Get Date/Description: get_input_date/get_input_description | Save Entry: add_entries.
+- show_task: Search Tasks: get_matching_tasks | Display Results: print_tasks.
+- edit_task: Search/Select: get_specific_task | Update Data: update_entry.
+- delete_task: Search/Select | Confirm Deletion: get_user_index | Remove Data: delete_entry.
 
+Key Functions Omitted for Clarity
+These low-level functions are essential but excluded from the main diagram to maintain visual focus on the feature workflows:
+- json_handler.get_json_tasks(): Data Core: Loads all tasks from the JSON file. This is the first step in every module.
+- interface.get_user_index(): Flow Control: Handles all discrete user choices, such as selecting a search type or confirming deletion.
+- interface.wait_for_user(): User Feedback: Pauses the console after an operation to wait for user acknowledgment.
+- Search/Filtering: Functions like get_tasks_by_date and get_tasks_by_description exist within the task_utils module to perform the underlying filtering logic for get_matching_tasks.
+- Output: Simple wrappers such as print_error and print_msg handle all terminal output formats.
+  
 ![Function Call Diagram](assets/function_tree_task_tracker.drawio.png)
 
 
