@@ -87,6 +87,7 @@ Users often struggle to manage daily tasks-such as homework, assignments, and pe
 
 ### Prerequisites
 * Python 3.10 or higher (Developed on Python 3.12).
+* **Git** (for cloning the repository).
 * **No external packages required** (Uses standard libraries only: `json`, `datetime`, `sys`).
 
 ### Installation
@@ -156,6 +157,7 @@ Below are the high-level diagrams illustrating our module dependencies and the f
 
 
 **Function Call Tree:**
+
 *Note: Due to the focus on clear and modular design, this diagram only includes the essential functions and omits low-level utility calls (like `print_msg` or `wait_for_user`).*
 
 ![Function Call Tree](assets/function_tree_task_tracker.drawio.png)
