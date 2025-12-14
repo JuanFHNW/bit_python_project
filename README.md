@@ -146,19 +146,27 @@ TaskTracker/
     ├── delete_task.py
     └── show_task.py
 ```
-### Logic Flow
-```mermaid
-graph TD
-    Start([Start]) --> Main{Main Menu}
-    Main -->|User Input| Actions
-    Actions --> Add[Add Task]
-    Actions --> Edit[Edit Task]
-    Actions --> Delete[Delete Task]
-    Actions --> Show[Show Tasks]
-    
-    Add & Edit & Delete & Show --> JSON[(task_data.json)]
-    JSON --> Main
-```
+
+### Visual Architecture
+Below are the high-level diagrams illustrating our module dependencies and the function call hierarchy.
+
+**Module Dependencies:**
+![Module Dependency Diagram](assets/module_dependency_task_tracker.drawio.png)
+
+**Function Call Tree:**
+![Function Call Tree](assets/function_tree_task_tracker.drawio.png)
+
+### Execution Flow Sketches
+These timelines visualize exactly *when* each part of the code runs during key operations.
+
+**1. App Launch & Cleanup**
+> `Start (main.py)` → `index.show_home()` → `delete_old_tasks()` → `Sort & Print Dashboard` → `Wait for User Input`
+
+**2. Adding a Task**
+> `User Selects "2"` → `add_task.py` → `get_input_date()` → `get_input_description()` → `json_handler.add_entries()` → **Save to JSON** → `End`
+
+**3. Searching & Editing**
+> `User Selects "3"` → `edit_task.py` → `Search (Date/Desc)` → `Select Task ID` → `Enter New Data` → `update_entry()` → **Overwrite JSON** → `End`
 
 ## ✅ Project Requirements
 This project fulfills the criteria for the **Programming Foundations** module:
