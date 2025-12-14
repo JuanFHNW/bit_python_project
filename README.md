@@ -151,9 +151,13 @@ TaskTracker/
 Below are the high-level diagrams illustrating our module dependencies and the function call hierarchy.
 
 **Module Dependencies:**
+
 ![Module Dependency Diagram](assets/module_dependency_task_tracker.drawio.png)
 
+
 **Function Call Tree:**
+*Note: Due to the focus on clear and modular design, this diagram only includes the essential functions and omits low-level utility calls (like `print_msg` or `wait_for_user`).*
+
 ![Function Call Tree](assets/function_tree_task_tracker.drawio.png)
 
 ### Execution Flow Sketches
