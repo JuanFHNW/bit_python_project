@@ -5,16 +5,15 @@
 ---
 
 ## 📖 Table of Contents
-- [Analysis & Context](#analysis--context)
-- [Key Features](#key-features)
-- [User Stories](#user-stories)
-- [Use Cases](#use-cases)
-- [Getting Started](#getting-started)
+- [Analysis & Context](#-analysis--context)
+- [Key Features](#-key-features)
+- [User Stories](#-user-stories)
+- [Use Cases](#-use-cases)
+- [Getting Started](#-getting-started)
 - [Usage Guide](#usage-guide)
-- [Architecture & Design](#architecture--design) 
-- [Project Requirements](#project-requirements)
-- [Team & Acknowledgments](#team--acknowledgments)
-
+- [Architecture & Design](#architecture--design)
+- [Project Requirements](#-project-requirements)
+- [Team & Acknowledgments](#-team--acknowledgments)
 ---
 
 ## 🧐 Analysis & Context
