@@ -1,5 +1,4 @@
 """Main entry point for the task tracker application."""
-import sys
 import task_functions.add_task as add_task
 import task_functions.show_task as show_task
 import task_functions.edit_task as edit_task
