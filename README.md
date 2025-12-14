@@ -93,7 +93,7 @@ Users often struggle to manage daily tasks—such as homework, assignments, and 
 
 1.  **Clone the repository**:
     ```bash
-    git clone [https://github.com/JuanFHNW/task-tracker.git](https://github.com/JuanFHNW/task-tracker.git)
+    git clone https://github.com/JuanFHNW/task_tracker.git
     cd task-tracker
     ```
 
