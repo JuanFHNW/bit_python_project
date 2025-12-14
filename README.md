@@ -1,9 +1,5 @@
 # 📝 Task Tracker
 
-![Python](https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python&logoColor=white)
-![Status](https://img.shields.io/badge/Status-Complete-green?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
-
 **Task Tracker** is a robust, console-based application designed to help students and professionals manage daily tasks efficiently. It focuses on clean architecture, strict data validation, and persistent storage using JSON.
 
 ---
@@ -14,11 +10,10 @@
 - [User Stories](#-user-stories)
 - [Use Cases](#-use-cases)
 - [Getting Started](#-getting-started)
-- [Usage Guide](#-usage-guide)
-- [Architecture & Design](#-architecture--design)
+- [Usage Guide](#usage-guide)
+- [Architecture & Design](#architecture--design)
 - [Project Requirements](#-project-requirements)
 - [Team & Acknowledgments](#-team--acknowledgments)
-
 ---
 
 ## 🧐 Analysis & Context
@@ -112,8 +107,10 @@ Users often struggle to manage daily tasks-such as homework, assignments, and pe
 Your upcoming tasks: 
 2025-12-17: Programming presentation
 2025-12-21: Submission essay
+2025-12-25: Christmas
 
-==== TASK PLANNER MENU ====
+
+==== TASK TRACKER MENU ====
 1. Show your tasks
 2. Add task
 3. Edit task
@@ -153,14 +150,14 @@ Below are the high-level diagrams illustrating our module dependencies and the f
 
 **Module Dependencies:**
 
-![Module Dependency Diagram](assets/module_dependency_task_tracker.drawio.png)
+![Module Dependency Diagram](assets/task_tracker_module_dependency.drawio.png)
 
 
 **Function Call Tree:**
 
 *Note: Due to the focus on clear and modular design, this diagram only includes the essential functions and omits low-level utility calls (like `print_msg` or `wait_for_user`).*
 
-![Function Call Tree](assets/function_tree_task_tracker.drawio.png)
+![Function Call Tree](assets/task_track_function_tree.drawio.png)
 
 ### Execution Flow Sketches
 These timelines visualize exactly *when* each part of the code runs during key operations.
