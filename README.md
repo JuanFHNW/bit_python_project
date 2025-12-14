@@ -182,7 +182,7 @@ This flow runs automatically whenever `main.py` calls `index.show_home()` to dis
 5.  → `tasks.sort()` (Sorts by date, using lambda function)
 6.  → `interface.print_tasks()` / `interface.print_msg()` (Display dashboard)
 7.  → `interface.print_home()` (Display main menu options)
-8.  → `input()` (in `main.py` loop, awaiting user action)
+8.  → `interface.get_user_index()` (Awaits and validates user action 1-5)
 
 **2. Adding a Task (Menu Option 2)**
 This flow handles gathering user input, validating it, and persisting the new entry.
@@ -191,7 +191,7 @@ This flow handles gathering user input, validating it, and persisting the new en
 2.  → `add_task.add_task()`
 3.  → `interface.get_input_date()` (Prompts user for and validates date)
 4.  → `interface.get_input_description()` (Prompts user for and validates description)
-5.  → `json_handler.add_entries()` (Reads, appends data, overwrites/truncates file)
+5.  → `json_handler.add_entry()` (Reads, appends data, overwrites/truncates file)
 6.  → `interface.wait_for_user()`
 7.  → `End` (Returns to main menu)
 
