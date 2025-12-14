@@ -10,8 +10,8 @@
 - [User Stories](#-user-stories)
 - [Use Cases](#-use-cases)
 - [Getting Started](#-getting-started)
-- [Usage Guide](#-usage-guide)
-- [Architecture & Design](#-architecture--design)
+- [Usage Guide](#usage-guide)
+- [Architecture & Design](#architecture-design)
 - [Project Requirements](#-project-requirements)
 - [Team & Acknowledgments](#-team--acknowledgments)
 
