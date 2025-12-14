@@ -12,18 +12,17 @@ def main():
     should_exit = False
 
     while not should_exit:
-        index.show_home()
-        user_action_home = input("Chose an option 1-5\n")
+        user_action_home = index.show_home()
         match user_action_home:
-            case "1":
+            case 1:
                 show_task.show_task()
-            case "2":
+            case 2:
                 add_task.add_task()
-            case "3":
+            case 3:
                 edit_task.edit_task()
-            case "4":
+            case 4:
                 delete_task.delete_task()
-            case "5":
+            case 5:
                 # Quit programme
                 sys.exit()
 

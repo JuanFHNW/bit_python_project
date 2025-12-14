@@ -21,7 +21,8 @@ def edit_task():
     # Get specific task which should be edited
     selected_task = task_utils.get_specific_task(
         found_tasks,
-        "The follwing tasks were found. Write down the corresponding number for the task you want to edit.\n"
+        "The following tasks were found. "
+        "Write down the corresponding number for the task you want to edit.\n"
     )
 
     # Get new date and description for the task which it will be updated to

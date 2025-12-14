@@ -32,7 +32,7 @@ def get_tasks_by_description(tasks, search_term):
     found_tasks = []
     tasks.sort(key=lambda task: task['date'])
     for task in tasks:
-        task_description = (task["description"])
+        task_description = task["description"]
         if search_term.upper() in task_description.upper():
             found_tasks.append(task)
     return found_tasks

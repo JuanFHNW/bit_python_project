@@ -1,4 +1,5 @@
 """Main module for the task tracker application."""
+
 import datetime
 import json_handler
 import interface
@@ -14,7 +15,7 @@ def delete_old_tasks():
     # Take the tasks from up to today
     for task in tasks:
         try:
-            year, month, day = map(int, task["date"].split('-'))
+            year, month, day = map(int, task["date"].split("-"))
             date_obj = datetime.date(year, month, day)
         except ValueError:
             interface.print_error("Error date at analyzing the json file")
@@ -35,11 +36,19 @@ def delete_old_tasks():
 
 
 def show_home():
-    """Display home screen with upcoming tasks."""
+    """Display home screen with upcoming tasks and ask user for an action
+    Returns:
+        Number: The action the user want to do.
+                1: show task
+                2: add task
+                3: edit task
+                4: delete task
+                5: exit programme
+    """
     # Delete tasks which are older than today
     delete_old_tasks()
     tasks = json_handler.get_json_tasks()
-    tasks.sort(key=lambda task: task['date'])
+    tasks.sort(key=lambda task: task["date"])
 
     if len(tasks) > 0:
         # Take the first 3 tasks
@@ -48,6 +57,7 @@ def show_home():
     else:
         interface.print_msg("You have no tasks right now")
     interface.print_home()
+    return interface.get_user_index(1, 5, "Choose an option 1-5\n")
 
 
 if __name__ == "__main__":

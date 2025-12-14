@@ -23,12 +23,13 @@ def get_json_tasks():
             "Starting with no tasks."
         )
         return []
-    except Exception as e:
-        interface.print_error(f"Error loading the JSON file: {e}")
+    except OSError as e:
+        # Handles PermissionError, disk full, etc.
+        interface.print_error(f"System error while saving data: {e}")
         return []
 
 
-def add_entries(task):
+def add_entry(task):
     """Add a new task entry to the JSON file.
     
     Args:
@@ -41,8 +42,13 @@ def add_entries(task):
             task_json.seek(0)
             json.dump(task_file_json, task_json, indent=4)
             task_json.truncate()
-    except Exception as e:
-        interface.print_error(f"There was an error storing the data: {e}")
+    except FileNotFoundError:
+        interface.print_error("Task data file not found. Could not add entry.")
+    except json.JSONDecodeError:
+        interface.print_error("Task data file is corrupt. Could not add entry.")
+    except OSError as e:
+        # Handles PermissionError, disk full, etc.
+        interface.print_error(f"System error while saving data: {e}")
 
 
 def update_entry(edit_task, new_desc, new_date):
@@ -53,18 +59,33 @@ def update_entry(edit_task, new_desc, new_date):
         new_desc (str): New description for the task.
         new_date (str): New date for the task.
     """
-    with open('task_data.json', "r") as task_json:
-        js_tasks = json.loads(task_json.read())
-        # Search for the matching task
-        for js_task in js_tasks:
-            if (edit_task["description"] == js_task.get("description") and
-                    edit_task["date"] == js_task.get("date")):
-                js_task["description"] = new_desc
-                js_task["date"] = new_date.isoformat()
-                break
-    # Overwrite the matching task
-    with open('task_data.json', "w") as task_json:
-        json.dump(js_tasks, task_json, indent=4)
+    try:
+        with open('task_data.json', "r+") as task_json:  # Read and write the file
+            js_tasks = json.load(task_json)
+            task_updated = False
+            # Search for the matching task
+            for js_task in js_tasks:
+                if (edit_task["description"] == js_task.get("description") and
+                        edit_task["date"] == js_task.get("date")):
+                    js_task["description"] = new_desc
+                    js_task["date"] = new_date.isoformat()
+                    task_updated = True
+                    break
+            # Only rewrite the file if a change actually happened
+            if task_updated:
+                task_json.seek(0)
+                json.dump(js_tasks, task_json, indent=4)
+                task_json.truncate()
+            else:
+                interface.print_error("Task not found. No changes saved.")
+
+    except FileNotFoundError:
+        interface.print_error("Task data file not found. Could not update entry.")
+    except json.JSONDecodeError:
+        interface.print_error("Task data file is corrupt. Could not update entry.")
+    except OSError as e:
+        # Handles PermissionError, disk full, etc.
+        interface.print_error(f"System error while updating data: {e}")
 
 
 def delete_entry(del_task, tasks):
@@ -91,9 +112,13 @@ def delete_entry(del_task, tasks):
         with open('task_data.json', "w") as task_json:
             json.dump(tasks, task_json, indent=4)
             task_json.truncate()
-    except Exception as e:
-        interface.print_error(f"There was an error deleting the data: {e}")
-
+    except FileNotFoundError:
+        interface.print_error("Task data file not found. Could not delete entry.")
+    except json.JSONDecodeError:
+        interface.print_error("Task data file is corrupt. Could not delete entry.")
+    except OSError as e:
+        # Handles PermissionError, disk full, etc.
+        interface.print_error(f"System error while saving data: {e}")
 
 def overwrite_all_tasks(tasks):
     """Overwrite all tasks in the JSON file.
@@ -102,14 +127,21 @@ def overwrite_all_tasks(tasks):
         tasks (list): List of task dictionaries to write.
         
     Returns:
-        True if successful, False otherwise.
-    """ 
+        boolean: True if successful, False otherwise.
+    """
     try:
         with open('task_data.json', "w") as task_json:
             json.dump(tasks, task_json, indent=4)
 
-    except Exception as e:
-        interface.print_error(f"Error overwriting the tasks: {e}")
+    except FileNotFoundError:
+        interface.print_error("Task data file not found. Could not overwrite entry.")
+        return False
+    except json.JSONDecodeError:
+        interface.print_error("Task data file is corrupt. Could not overwrite entry.")
+        return False
+    except OSError as e:
+        # Handles PermissionError, disk full, etc.
+        interface.print_error(f"System error while saving data: {e}")
         return False
     return True
 

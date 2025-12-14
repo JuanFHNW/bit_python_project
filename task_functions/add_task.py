@@ -18,7 +18,7 @@ def add_task():
         "description": input_description
     }
     # Add new_task to the json file
-    json_handler.add_entries(new_task)
+    json_handler.add_entry(new_task)
     interface.wait_for_user("You tasks is now added press enter to continue\n")
 
 

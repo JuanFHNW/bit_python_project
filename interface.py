@@ -5,11 +5,11 @@ import datetime
 
 def print_home():
     """Display home screen with main menu options."""
-    print("\n==== TASK PLANNER MENU ====")
+    print("\n==== TASK TRACKER MENU ====")
     print("1. Show your tasks")
-    print("2. Add task")
-    print("3. Edit task")
-    print("4. Delete task")
+    print("2. Add a task")
+    print("3. Edit a task")
+    print("4. Delete a task")
     print("5. Exit")
     print("==========================")
 
@@ -73,16 +73,16 @@ def print_tasks(tasks, prompt, show_index=False):
 
 
 def print_error(message):
-    """printe an error message.
+    """print an error message.
     Args:
-        prompt (str): The error message to display to the user."""
+        message (str): The error message to display to the user."""
     print(f"Error: {message}")
 
 
 def print_msg(message):
     """print a message.
     Args:
-        prompt (str): The message to display to the user."""
+        message (str): The message to display to the user."""
     print(message)
 
 
@@ -119,3 +119,4 @@ if __name__ == "__main__":
     # test_index = get_user_index(0, 10, "Type a number between 0 and 10")
     user_date = get_input_date("Type a date\n")
     print(user_date)
+    
