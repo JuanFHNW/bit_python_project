@@ -213,11 +213,76 @@ This complex flow involves task retrieval, selection, new input validation, and 
 11. → `End` (Returns to main menu)
 
 ## ✅ Project Requirements
-This project fulfills the criteria for the **Programming Foundations** module:
 
-- [x] **Interactive App:** Console-based menu with dynamic user interaction.
-- [x] **Data Validation:** Strict input checking (dates, empty strings, types) using `try-except` blocks.
-- [x] **File Processing:** Reads and writes structured JSON data (`task_data.json`) with error handling for file existence and corruption.
+Each app must meet the following three criteria in order to be accepted:
+1. Interactive app (console input)
+2. Data validation (input checking)
+3. File processing (read/write)
+
+---
+
+### 1. Interactive App (Console Input)
+The application is fully interactive, running a persistent loop in `main.py` until the user chooses to exit. It guides the user through menus and options clearly:
+
+* **Main Menu:** Users navigate using numbered options (1-5).
+* **Dynamic Feedback:** The app confirms actions (e.g., "Task deleted") and provides error messages immediately.
+* **Navigation:** Users can cancel operations (like searching) by typing `1` to return to the previous menu.
+
+---
+
+### 2. Data Validation
+We implemented strict validation in `interface.py` to ensure data integrity and prevent crashes.
+
+* **Date Validation:** We ensure dates follow the `yyyy.mm.dd` format and are not in the past.
+    ```python
+    try:
+        year, month, day = map(int, input_date.split('.'))
+        date_obj = datetime.date(year, month, day)
+        if date_obj >= today:
+            return date_obj
+        print("The date can't be in the past")
+    except ValueError:
+        print("Invalid input! Please use the format: yyyy.mm.dd")
+    ```
+
+* **Empty Input Check:** Tasks must have a description; empty strings are rejected.
+    ```python
+    if user_input_desc:
+        return user_input_desc
+    print("Your input can't be empty")
+    ```
+
+* **Index Selection:** When selecting a task to edit or delete, we verify the number is within the valid range of the list.
+    ```python
+    if min_length <= idx <= max_length:
+        return idx
+    print(f"Please write a number between {min_length} and {max_length}")
+    ```
+
+---
+
+### 3. File Processing
+The application persistently stores data in `task_data.json` using the `json` module in `json_handler.py`.
+
+* **Robust Reading:** The system handles missing or corrupted files gracefully without crashing.
+    ```python
+    try:
+        with open('task_data.json', "r") as task_json:
+            tasks = json.load(task_json)
+            return tasks
+    except json.JSONDecodeError:
+        interface.print_error("Task data file is corrupt. Starting with no tasks.")
+        return []
+    ```
+
+* **Atomic Writing:** When adding or updating tasks, we perform a full write sequence to ensure the file structure remains valid.
+    ```python
+    with open('task_data.json', "r+") as task_json:
+        # ... (logic to append data) ...
+        task_json.seek(0)
+        json.dump(task_file_json, task_json, indent=4)
+        task_json.truncate()
+    ```
 
 ---
 
