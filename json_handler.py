@@ -33,7 +33,7 @@ def add_entry(task):
     """Add a new task entry to the JSON file.
     
     Args:
-        task (ictionary): Task dictionary to add.
+        task (dictionary): Task dictionary to add.
     """
     try:
         with open('task_data.json', "r+") as task_json:

@@ -24,7 +24,8 @@ def main():
                 delete_task.delete_task()
             case 5:
                 # Quit programme
-                sys.exit()
+                should_exit = True
+                #sys.exit()
 
 
 if __name__ == "__main__":
