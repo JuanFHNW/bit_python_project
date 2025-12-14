@@ -112,8 +112,10 @@ Users often struggle to manage daily tasks-such as homework, assignments, and pe
 Your upcoming tasks: 
 2025-12-17: Programming presentation
 2025-12-21: Submission essay
+2025-12-25: Christmas
 
-==== TASK PLANNER MENU ====
+
+==== TASK TRACKER MENU ====
 1. Show your tasks
 2. Add task
 3. Edit task
