@@ -24,7 +24,7 @@
 ## 🧐 Analysis & Context
 
 ### The Problem
-Users often struggle to manage daily tasks—such as homework, assignments, and personal to-do's—because existing tools are polarized: they are either too complex with overwhelming features or too simple, lacking data persistence.
+Users often struggle to manage daily tasks-such as homework, assignments, and personal to-do's-because existing tools are polarized: they are either too complex with overwhelming features or too simple, lacking data persistence.
 
 ### Our Solution
 **Task Tracker** offers a minimalist, reliable middle ground. It launches immediately into a dashboard of your most urgent tasks and ensures data integrity by validating all inputs. All changes are saved automatically to a local JSON file (`task_data.json`), ensuring data persists even after restarting the system.
