@@ -162,7 +162,7 @@ Below are the high-level diagrams illustrating our module dependencies and the f
 
 *Note: Due to the focus on clear and modular design, this diagram only includes the essential functions and omits low-level utility calls (like `print_msg` or `wait_for_user`).*
 
-![Function Call Tree](assets/function_tree_task_tracker.drawio.png)
+![Function Call Tree](assets/task_track_function_tree.drawio.png)
 
 ### Execution Flow Sketches
 These timelines visualize exactly *when* each part of the code runs during key operations.
