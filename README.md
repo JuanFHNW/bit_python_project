@@ -155,7 +155,7 @@ Below are the high-level diagrams illustrating our module dependencies and the f
 
 **Module Dependencies:**
 
-![Module Dependency Diagram](assets/module_dependency_task_tracker.drawio.png)
+![Module Dependency Diagram](assets/task_tracker_module_dependency.drawio.png)
 
 
 **Function Call Tree:**
