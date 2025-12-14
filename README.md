@@ -87,6 +87,7 @@ Users often struggle to manage daily tasks—such as homework, assignments, and 
 
 ### Prerequisites
 * Python 3.10 or higher (Developed on Python 3.12).
+* **No external packages required** (Uses standard libraries only: `json`, `datetime`, `sys`).
 
 ### Installation
 
@@ -146,7 +147,8 @@ TaskTracker/
     └── show_task.py
 ```
 ### Logic Flow
-```graph TD
+```mermaid
+graph TD
     Start([Start]) --> Main{Main Menu}
     Main -->|User Input| Actions
     Actions --> Add[Add Task]
@@ -174,9 +176,6 @@ This project fulfills the criteria for the **Programming Foundations** module:
 * **Juan Vock** (Edit function + Add function + Architecture)
 * **Fernando Mauracher Garcia** (Delete function + Show function)
 
-**Supervisors:**
-* Phillip Gachnang
-* Devid Montecchiari
 
 **Date:**
 * 17th December 2025
