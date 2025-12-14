@@ -165,14 +165,55 @@ Below are the high-level diagrams illustrating our module dependencies and the f
 ### Execution Flow Sketches
 These timelines visualize exactly *when* each part of the code runs during key operations.
 
-**1. App Launch & Cleanup**
-> `Start (main.py)` → `index.show_home()` → `delete_old_tasks()` → `Sort & Print Dashboard` → `Wait for User Input`
+### Execution Flow Sketches (Detailed)
+These timelines visualize the precise function-by-function flow for the application's key operations.
 
-**2. Adding a Task**
-> `User Selects "2"` → `add_task.py` → `get_input_date()` → `get_input_description()` → `json_handler.add_entries()` → **Save to JSON** → `End`
+**1. App Launch & Auto-Cleanup**
+This flow runs automatically whenever `main.py` calls `index.show_home()` to display the main menu.
 
-**3. Searching & Editing**
-> `User Selects "3"` → `edit_task.py` → `Search (Date/Desc)` → `Select Task ID` → `Enter New Data` → `update_entry()` → **Overwrite JSON** → `End`
+1.  `Start (main.py)`
+2.  → `index.show_home()`
+3.  → `delete_old_tasks()`
+    * → `json_handler.get_json_tasks()` (Load all tasks)
+    * → (Loop compares dates against `datetime.date.today()`)
+    * → `json_handler.overwrite_all_tasks()` (If tasks were deleted)
+    * → `interface.print_msg()` (for each task deleted by cleanup)
+4.  → `json_handler.get_json_tasks()` (Load tasks again for dashboard)
+5.  → `tasks.sort()` (Sorts by date, using lambda function)
+6.  → `interface.print_tasks()` / `interface.print_msg()` (Display dashboard)
+7.  → `interface.print_home()` (Display main menu options)
+8.  → `input()` (in `main.py` loop, awaiting user action)
+
+**2. Adding a Task (Menu Option 2)**
+This flow handles gathering user input, validating it, and persisting the new entry.
+
+1.  `User Selects "2"`
+2.  → `add_task.add_task()`
+3.  → `interface.get_input_date()` (Prompts user for and validates date)
+4.  → `interface.get_input_description()` (Prompts user for and validates description)
+5.  → `json_handler.add_entries()` (Reads, appends data, overwrites/truncates file)
+6.  → `interface.wait_for_user()`
+7.  → `End` (Returns to main menu)
+
+**3. Searching & Editing a Task (Menu Option 3)**
+This complex flow involves task retrieval, selection, new input validation, and file update.
+
+1.  `User Selects "3"`
+2.  → `edit_task.edit_task()`
+3.  → `json_handler.get_json_tasks()`
+4.  → `interface.get_user_index()` (User selects 0 for Description or 1 for Date search)
+5.  → `task_utils.get_matching_tasks()` (Loops until a task is found or user quits)
+    * → `interface.get_input_description()` OR `interface.get_input_date()`
+    * → `task_utils.get_tasks_by_description()` OR `task_utils.get_tasks_by_date()`
+    * → `interface.print_msg()` (if no matches found)
+6.  → `task_utils.get_specific_task()` (User selects one task from the list of matches)
+    * → `interface.print_tasks()`
+    * → `interface.get_user_index()`
+7.  → `interface.get_input_date()` (New date input)
+8.  → `interface.get_input_description()` (New description input)
+9.  → `json_handler.update_entry()` (Locates task in JSON, updates fields, and rewrites file)
+10. → `interface.wait_for_user()`
+11. → `End` (Returns to main menu)
 
 ## ✅ Project Requirements
 This project fulfills the criteria for the **Programming Foundations** module:
