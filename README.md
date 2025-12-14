@@ -1,261 +1,188 @@
-# Task Tracker
-A robust, console-based tool for managing daily tasks, designed with a focus on clean code structure, data validation, and persistent storage.
+# 📝 Task Tracker
 
-## 📝 Analysis & Context
+![Python](https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Complete-green?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
-**Problem**
-Users struggle to efficiently manage their daily tasks, such as homework, assignments and personal to-do's, because they don’t have a simple and reliable way to organize, edit, and save their tasks. Without the TaskTracker, users find it difficult to manage their workload and keep track of what needs to be done.
+**Task Tracker** is a robust, console-based application designed to help students and professionals manage daily tasks efficiently. It focuses on clean architecture, strict data validation, and persistent storage using JSON.
 
-**Scenario**
-TaskTracker offers a minimalist and efficient solution to this problem. A user opens the application in the console and immediately sees their most urgent tasks. They can add new entries with a due date and a description. The system ensures that no invalid data (e.g., dates in the past or empty descriptions) is entered. All changes are immediately saved in a local JSON file, ensuring data remains available even after restarting the computer.
+---
+
+## 📖 Table of Contents
+- [Analysis & Context](#-analysis--context)
+- [Key Features](#-key-features)
+- [User Stories](#-user-stories)
+- [Use Cases](#-use-cases)
+- [Getting Started](#-getting-started)
+- [Usage Guide](#-usage-guide)
+- [Architecture & Design](#-architecture--design)
+- [Project Requirements](#-project-requirements)
+- [Team & Acknowledgments](#-team--acknowledgments)
+
+---
+
+## 🧐 Analysis & Context
+
+### The Problem
+Users often struggle to manage daily tasks—such as homework, assignments, and personal to-do's—because existing tools are polarized: they are either too complex with overwhelming features or too simple, lacking data persistence.
+
+### Our Solution
+**Task Tracker** offers a minimalist, reliable middle ground. It launches immediately into a dashboard of your most urgent tasks and ensures data integrity by validating all inputs. All changes are saved automatically to a local JSON file (`task_data.json`), ensuring data persists even after restarting the system.
+
+---
 
 ## 🚀 Key Features
 
-* **Dashboard View:** Instantly shows the top 3 upcoming tasks upon launch.
-* **Automatic Cleanup:** Tasks older than "today" are automatically deleted to keep the list fresh.
-* **Smart Search:** Find tasks by searching for a specific **Date** or a keyword in the **Description**.
-* **Data Validation:**
+* **⚡ Instant Dashboard:** Immediately displays the top 3 upcoming tasks upon launch.
+* **🧹 Auto-Cleanup Algorithm:** A silent startup check automatically deletes tasks strictly older than "today" to keep your list fresh.
+* **💾 Persistence:** All data is stored in `task_data.json`, ensuring no data loss.
+* **🔍 Smart Search:** Filter tasks by **Date** or **Description** keyword.
+* **🛡️ Robust Validation:**
     * Prevents entering past dates.
-    * Ensures descriptions are not empty.
-    * Validates date formats (`yyyy.mm.dd`).
-* **Persistence:** All data is saved to a JSON file (`task_data.json`) automatically.
-* **Error Handling:** Gracefully handles corrupt data files or invalid user inputs without crashing.
+    * Rejects empty descriptions.
+    * Enforces `yyyy.mm.dd` format.
+    * Handles corrupted files gracefully without crashing.
 
-**User stories:**
-1.  **As a user**, I want to be able to **search for a date or a description** of a stored task and view them so I can efficiently plan my activities.
-2.  **As a user**, I want to **add a new task** by providing both a valid future date and a non-empty description, so that I can ensure my schedule is accurate from the start.
-3.  **As a user**, I want to **find a specific task** (via search) and **update its date or description** with new, validated information, allowing me to adapt to changing plans.
-4.  **As a user**, I want to **select and delete specific tasks** easily, so I can remove completed or outdated entries and keep my workload focused.
-5.  **As a user**, I want to be certain that **all my tasks are automatically saved** and restored when I restart the application, ensuring I never lose data.
-6.  **As a user**, I want tasks that are **older than "today" to be deleted automatically** upon startup, keeping my dashboard free of irrelevant history.
-7.  **As a user**, I want the option to **cancel/quit an action** (by typing '1') while entering data, so I am not forced to finish a task entry if I change my mind.
-8.  **As a user**, I want to see a **dashboard of the next 3 tasks** immediately upon opening the app, providing a quick status update without navigating menus.
+---
+
+## 👤 User Stories
+
+1.  **As a user**, I want to see a **dashboard of the next 3 tasks** immediately upon opening the app for a quick status update.
+2.  **As a user**, I want to **add a new task** with a valid future date and description to keep my schedule accurate.
+3.  **As a user**, I want to **search for a task** by date or description so I can efficiently plan my activities.
+4.  **As a user**, I want to **edit specific tasks** to update their details as my plans change.
+5.  **As a user**, I want to **delete completed or outdated tasks** to keep my workload focused.
+6.  **As a user**, I want outdated tasks to be **automatically deleted** to keep my view clutter-free.
+7.  **As a user**, I want the option to **cancel an action** (by typing '1') if I change my mind during input.
+8.  **As a user**, I want my data **automatically saved** so I never lose my progress.
+
+---
 
 ## ⚙️ Use Cases
 
-The following Use Cases describe the exact interaction flow between the User and the System, including valid inputs and error handling.
-
 ### UC1: Launch & Auto-Cleanup
 * **Trigger:** User runs `main.py`.
-* **System Action:**
-    1.  Loads data from `task_data.json`.
-    2.  Compares task dates against `datetime.date.today()`.
-    3.  **Auto-Deletes** any task strictly older than today.
-    4.  Sorts the remaining tasks chronologically.
-    5.  Displays the **Main Menu** and the **Top 3 Upcoming Tasks**.
+* **System Action:** Loads data, removes tasks older than `today`, sorts remaining tasks, and displays the **Main Menu** + **Top 3 Upcoming Tasks**.
 
 ### UC2: Add Task
 * **Trigger:** User selects Option `2`.
-* **Flow:**
-    1.  System prompts for date (`yyyy.mm.dd`).
-    2.  **Validation:** Checks if format is correct AND if date is $\ge$ today.
-    3.  System prompts for description (must not be empty).
-    4.  System appends the new task to the JSON file and confirms success.
-* **Alternative:** User types `'1'` during input to **Cancel** and return to menu.
+* **Flow:** System prompts for date (`yyyy.mm.dd`) and description.
+* **Validation:** Checks format and ensures date $\ge$ today. Confirms success upon saving.
 
 ### UC3: Search & View
 * **Trigger:** User selects Option `1`.
-* **Flow:**
-    1.  User chooses search mode: `0` (Description) or `1` (Date).
-    2.  User enters search term (e.g., "Doctor" or "2025.12.24").
-    3.  System performs a **case-insensitive search** using `task_utils.py`.
-    4.  Displays all matching results.
+* **Flow:** User chooses search mode (`0` for Description, `1` for Date) and enters query. System displays all matching results.
 
 ### UC4: Edit Task
 * **Trigger:** User selects Option `3`.
-* **Flow:**
-    1.  User performs a **Search** (see UC3) to isolate the task.
-    2.  System lists matches with an **Index ID**.
-    3.  User selects the ID of the task to edit.
-    4.  System requests new Date and Description (with validation).
-    5.  System overwrites the specific entry in the JSON file.
+* **Flow:** User searches for a task, selects it by ID, and provides new validated details. System overwrites the entry.
 
 ### UC5: Delete Task
 * **Trigger:** User selects Option `4`.
-* **Flow:**
-    1.  User performs a **Search** to find the task.
-    2.  User selects the ID of the task to delete.
-    3.  **Safety Check:** System asks "Are you sure you want to delete...?"
-    4.  User confirms with `'1'`.
-    5.  System permanently removes the entry.
+* **Flow:** User finds a task, selects it, and confirms deletion. System permanently removes the entry.
 
+---
 
-## ✅ Project Requirements
+## 💻 Getting Started
 
-Each app must meet the following three criteria in order to be accepted (see also the official project guidelines PDF on Moodle):
+### Prerequisites
+* Python 3.10 or higher (Developed on Python 3.12).
 
-1. Interactive app (console input)
-2. Data validation (input checking)
-3. File processing (read/write)
+### Installation
 
+1.  **Clone the repository**:
+    ```bash
+    git clone [https://github.com/your-username/task-tracker.git](https://github.com/your-username/task-tracker.git)
+    cd task-tracker
+    ```
 
-### 1. Interactive App (Console Input)
+2.  **Run the application**:
+    ```bash
+    python main.py
+    ```
 
-The application interacts with the user via the console. Users can:
-- View the dashboard: Shows the next 3 upcoming tasks immediately upon start.
-- Navigate the Menu: Choose options 1-5 to Show, Add, Edit, Delete, or Exit.
-- Search interactively: When editing or deleting, users can choose to search by specific Date (1) or Description (0).
+---
 
-### 2. Data Validation
+## 🕹️ Usage Guide
 
-The application validates user input to ensure data integrity. 
-This is primarily implemented in userInput.py and getDate.py:
-
-Date Validation: When adding or editing a task, the input must match the format yyyy.mm.dd. 
-The getInputDate function uses a try-except block to catch ValueError. If the format is wrong, it alerts the user:
-```python
-try:
- 	dateObj = getDate(userInputDate)
- 	return dateObj
- except ValueError:
- 	print("Invalid input! Please use the format: yyyy.mm.dd")
- ```
-Empty Input Checks: The program ensures task descriptions are not empty strings:
-```python
-if userInputDesc:
- 	return userInputDesc
- else:
- 	print("Your input can't be empty")
-```
-
-### 2. File processing
-
-The application reads and writes data using the JSON format for structured storage:
-Storage File: taskData.json — Stores an array of task objects.
-
-Example structure:
-```JSON
-[
- 	{
- 		"date": "2026-09-15",
- 		"description": "Doctor appointment"
- 	},
- 	{
- 		"date": "2025-12-25",
- 		"description": "Family appointment"
- 	}
- ]
-```
-Reading Data: jsonHandler.getJsonTasks() opens the file in read mode ("r"). It includes error handling for FileNotFoundError (returns an empty list) and json.JSONDecodeError (handles corrupt files).
-
-Writing/Updating Data:
-
-addEntries: Appends new tasks and uses json.dump with indentation for readability.
-
-updateEntry: Reads all tasks, finds the matching entry, modifies it, and rewrites the file.
-
-deleteEntry: Removes the item from the list and truncates/rewrites the JSON file.
-
-### Technology
-- Python 3.12
-- Environment: Visual Studio Code
-- Standard Libraries: json, datetime, sys
-
-### 🏗️ Architecture & Design
-This project follows the **Separation of Concerns** principle to ensure maintainability and testability. The application is divided into distinct layers:
-
+**Main Menu Interface:**
 ```text
+Your upcoming tasks: 
+2025-12-17: Programming presentation
+2025-12-21: Submission essay
 
+==== TASK PLANNER MENU ====
+1. Show your tasks
+2. Add task
+3. Edit task
+4. Delete task
+5. Exit
+==========================
+```
+## 💡 Pro Tips
+* **Navigation:** Enter the number corresponding to the menu option (`1`-`5`).
+* **Canceling:** Type `1` during any data entry prompt (like entering a date) to cancel the operation and return to the main menu.
+* **Date Format:** Always use `yyyy.mm.dd` (e.g., `2025.12.25`).
+
+---
+
+## 🏗️ Architecture & Design
+We followed the **Separation of Concerns** principle and the **IPO (Input-Process-Output)** model to ensure maintainability and clarity.
+
+### File Structure
+```text
 TaskTracker/
 │
-├── main.py                  # [Controller] Entry Point: Runs the main event loop & menu
-├── index.py                 # [Controller] Dashboard Logic: Handles startup checks & auto-cleanup
-├── interface.py             # [View] UI Layer: Handles all console output and user input
-├── json_handler.py          # [Model] Data Layer: Pure backend logic for JSON Read/Write
-├── task_data.json           # [Database] The persistent storage file
+├── main.py                  # Entry Point
+├── index.py                 # Dashboard & Cleanup Logic
+├── interface.py             # User Interface (Input/Output)
+├── json_handler.py          # Data Persistence (JSON)
+├── task_data.json           # Database
 │
-└── task_functions/          # [Logic] Feature Modules
-    ├── add_task.py          # Workflow for creating tasks
-    ├── edit_task.py         # Workflow for updating tasks
-    ├── delete_task.py       # Workflow for removing tasks
-    ├── show_task.py         # Workflow for searching/viewing
-    │
-    └── utils/
-        └── task_utils.py    # [Helper] Algorithms for sorting & filtering
+└── task_functions/          # Feature Modules
+    ├── add_task.py
+    ├── edit_task.py
+    ├── delete_task.py
+    └── show_task.py
 ```
-graph TD
-    Start([Start Program]) --> MainLoop{Main Loop}
-    MainLoop -->|1. Cleanup & Display| ShowHome[index.show_home]
-    ShowHome --> UserInput[/User Input: Option 1-5/]
+### Logic Flow
+```graph TD
+    Start([Start]) --> Main{Main Menu}
+    Main -->|User Input| Actions
+    Actions --> Add[Add Task]
+    Actions --> Edit[Edit Task]
+    Actions --> Delete[Delete Task]
+    Actions --> Show[Show Tasks]
     
-    UserInput -->|1| Show[show_task.show_task]
-    UserInput -->|2| Add[add_task.add_task]
-    UserInput -->|3| Edit[edit_task.edit_task]
-    UserInput -->|4| Delete[delete_task.delete_task]
-    UserInput -->|5| Exit([sys.exit])
-    
-    Show --> Wait[interface.wait_for_user]
-    Add --> Wait
-    Edit --> Wait
-    Delete --> Wait
-    
-    Wait -->|Press Enter| MainLoop
-    
-    style Start fill:#98c379,stroke:#333,stroke-width:2px,color:black
-    style Exit fill:#e06c75,stroke:#333,stroke-width:2px,color:black
-    style MainLoop fill:#61afef,stroke:#333,stroke-width:2px,color:black
+    Add & Edit & Delete & Show --> JSON[(task_data.json)]
+    JSON --> Main
+```
 
-### 🏗️ Architecture Overview
+## ✅ Project Requirements
+This project fulfills the criteria for the **Programming Foundations** module:
 
-The Task Tracker uses a modular design to ensure clean separation of concerns.
+- [x] **Interactive App:** Console-based menu with dynamic user interaction.
+- [x] **Data Validation:** Strict input checking (dates, empty strings, types) using `try-except` blocks.
+- [x] **File Processing:** Reads and writes structured JSON data (`task_data.json`) with error handling for file existence and corruption.
 
-1. Module Dependency Structure
-The application's logic is cleanly separated into distinct modules:
-- main.py is the entry point and runs the main loop.
-- index.py handles startup logic and the dashboard view.
-- task_functions/ contains the main feature workflows (add_task, edit_task, delete_task, show_task).
-- json_handler.py manages all data persistence (read/write to task_data.json).
-- interface.py handles all user I/O (input prompts, printing tasks/errors).
-![Function Call Diagram](assets/module_dependency_task_tracker.drawio.png)
+---
 
-  
-2. Function Call Hierarchy
-The diagram below illustrates the call hierarchy from the main() controller to the core functions for each feature
-- show_home: Cleanup (delete_old_tasks) and Dashboard Display (print_home).
-- add_task: Get Date/Description: get_input_date/get_input_description | Save Entry: add_entries.
-- show_task: Search Tasks: get_matching_tasks | Display Results: print_tasks.
-- edit_task: Search/Select: get_specific_task | Update Data: update_entry.
-- delete_task: Search/Select | Confirm Deletion: get_user_index | Remove Data: delete_entry.
+## 👥 Team & Acknowledgments
 
-Key Functions Omitted for Clarity
-These low-level functions are essential but excluded from the main diagram to maintain visual focus on the feature workflows:
-- json_handler.get_json_tasks(): Data Core: Loads all tasks from the JSON file. This is the first step in every module.
-- interface.get_user_index(): Flow Control: Handles all discrete user choices, such as selecting a search type or confirming deletion.
-- interface.wait_for_user(): User Feedback: Pauses the console after an operation to wait for user acknowledgment.
-- Search/Filtering: Functions like get_tasks_by_date and get_tasks_by_description exist within the task_utils module to perform the underlying filtering logic for get_matching_tasks.
-- Output: Simple wrappers such as print_error and print_msg handle all terminal output formats.
-  
-![Function Call Diagram](assets/function_tree_task_tracker.drawio.png)
+**Development Team:**
+* **Bernardo Alfonso Suárez Espinoza** (Index function + Testing)
+* **Juan Vock** (Edit function + Add function + Architecture)
+* **Fernando Mauracher Garcia** (Delete function + Show function)
 
+**Supervisors:**
+* Phillip Gachnang
+* Devid Montecchiari
 
-### How to Run
-1. Open the repository in Terminal
-2. Open the Terminal
-3. Run:
-	```bash
-	python3 main.py
-	```
-4. Follow the on-screen menu prompts.
-   
-### Libraries Used
+**Date:**
+* 17th December 2025
 
-json: Essential for parsing the taskData.json file to store tasks persistently as structured objects.
-datetime: Used in getDate.py and sorting logic to ensure tasks are handled chronologically and formatted correctly (ISO format).
-sys: Used in main.py to cleanly exit the application.
+---
 
-This project is intended to:
-
-- Practice the complete process from **problem analysis to implementation**
-- Apply basic **Python** programming concepts learned in the Programming Foundations module
-- Demonstrate the use of **console interaction, data validation, and file processing**
-- Produce clean, well-structured, and documented code
-- Prepare students for **teamwork and documentation** in later modules
-- Use this repository as a starting point by importing it into your own GitHub account.  
-- Work only within your own copy — do not push to the original template.  
-- Commit regularly to track your progress.
-  
-## 📝 License
-
-This project is provided for **educational use only** as part of the Programming Foundations module.  
+### 📝 License
+This project is provided for educational use only as part of the FHNW Programming Foundations module.
 [MIT License](LICENSE)
-
