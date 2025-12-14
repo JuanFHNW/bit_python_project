@@ -10,8 +10,8 @@
 - [User Stories](#-user-stories)
 - [Use Cases](#-use-cases)
 - [Getting Started](#-getting-started)
-- [Usage Guide](#usage-guide)
-- [Architecture & Design](#architecture--design)
+- [Usage Guide](#-usage-guide)
+- [Architecture & Design](#-architecture--design)
 - [Project Requirements](#-project-requirements)
 - [Team & Acknowledgments](#-team--acknowledgments)
 ---
@@ -19,7 +19,7 @@
 ## 🧐 Analysis & Context
 
 ### The Problem
-Users often struggle to manage daily tasks-such as homework, assignments, and personal to-do's-because existing tools are polarized: they are either too complex with overwhelming features or too simple, lacking data persistence.
+Users often struggle to manage daily tasks such as homework, assignments, and personal to-do's because existing tools are polarized: they are either too complex with overwhelming features or too simple, lacking data persistence.
 
 ### Our Solution
 **Task Tracker** offers a minimalist, reliable middle ground. It launches immediately into a dashboard of your most urgent tasks and ensures data integrity by validating all inputs. All changes are saved automatically to a local JSON file (`task_data.json`), ensuring data persists even after restarting the system.
@@ -83,7 +83,7 @@ Users often struggle to manage daily tasks-such as homework, assignments, and pe
 ### Prerequisites
 * Python 3.10 or higher (Developed on Python 3.12).
 * **Git** (for cloning the repository).
-* **No external packages required** (Uses standard libraries only: `json`, `datetime`, `sys`).
+* **No external packages required** (Uses standard libraries only: `json`, `datetime`).
 
 ### Installation
 
